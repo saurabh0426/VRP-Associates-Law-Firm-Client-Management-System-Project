@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Scanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #image-preview {
+            max-width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Upload an Image or PDF for OCR</h2>
+    <input type="file" id="fileInput" accept="image/*,application/pdf">
+    <br>
+    <img id="image-preview">
+    <br>
+    <button onclick="uploadFile()">Extract Text</button>
+    <h3>Extracted Text:</h3>
+    <p id="output"></p>
+
+    <script>
+        function uploadFile() {
+            let fileInput = document.getElementById("fileInput");
+            let file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select an image or PDF.");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("file", file);
+
+            fetch("http://127.0.0.1:5000/upload", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Server error, try again.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById("output").innerText = "Error: " + data.error;
+                    } else {
+                        document.getElementById("output").innerHTML = `
+                <strong>Original Text:</strong> ${data.original_text}<br>
+                <strong>Corrected Text:</strong> ${data.corrected_text}<br>
+                <strong>Summary:</strong> ${data.summary}<br>
+                <strong>Sentiment:</strong> ${data.sentiment}<br>
+                <strong>Entities:</strong> ${data.entities.map(e => `<i>${e.text} (${e.label})</i>`).join(", ")}
+            `;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("output").innerText = "Failed to process the file.";
+                });
+        }
+
+        // Preview uploaded file (only for images)
+        document.getElementById("fileInput").addEventListener("change", function (event) {
+            let img = document.getElementById("image-preview");
+            let file = event.target.files[0];
+
+            if (file.type.startsWith("image/")) {
+                img.src = URL.createObjectURL(file);
+                img.style.display = "block";
+            } else {
+                img.style.display = "block";  // Hide preview for PDFs
+            }
+        });
+
+    </script>
+</body>
+
+</html>

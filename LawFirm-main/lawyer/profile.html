@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Lawyer Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c5282;
+            --primary-light: #4a69bd;
+            --primary-dark: #1a365d;
+            --secondary-color: #4299e1;
+            --secondary-light: #63b3ed;
+            --accent-color: #ebf8ff;
+            --success-color: #48bb78;
+            --success-light: #c6f6d5;
+            --warning-color: #ecc94b;
+            --warning-light: #fefcbf;
+            --danger-color: #f56565;
+            --danger-light: #fed7d7;
+            --dark-color: #2d3748;
+            --light-color: #f7fafc;
+            --gray-100: #f7fafc;
+            --gray-200: #edf2f7;
+            --gray-300: #e2e8f0;
+            --gray-400: #cbd5e0;
+            --gray-500: #a0aec0;
+            --gray-600: #718096;
+            --gray-700: #4a5568;
+            --gray-800: #2d3748;
+            --gray-900: #1a202c;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            min-height: 100vh;
+        }
+
+        /* Enhanced Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-dark), var(--primary-color));
+            color: white;
+            padding-top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-brand i {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .sidebar-brand h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            color: white;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            margin: 0.3rem 0.8rem;
+            border-radius: 0.5rem;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .sidebar i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        /* Enhanced Header */
+        .header {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .header h2 i {
+            margin-right: 0.8rem;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        .header-subtitle {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        /* Profile content */
+        .content-box {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-header {
+            background: linear-gradient(to right, var(--primary-light), var(--secondary-color));
+            padding: 3.5rem 2rem 8rem;
+            position: relative;
+            color: white;
+        }
+
+        .profile-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .profile-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .profile-body {
+            padding: 0 2rem 2rem;
+            position: relative;
+            z-index: 1;
+            margin-top: -5rem;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .form-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--gray-700);
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            color: var(--gray-900);
+            background-color: #fff;
+            border-color: var(--primary-light);
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+
+        .form-control[readonly] {
+            background-color: var(--gray-100);
+            opacity: 0.8;
+        }
+
+        .form-control::placeholder {
+            color: var(--gray-500);
+            opacity: 1;
+        }
+
+        textarea.form-control {
+            height: auto;
+            resize: none;
+            min-height: 120px;
+        }
+
+        /* Button styling */
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+            border: none;
+            color: white;
+            box-shadow: 0 4px 6px rgba(66, 153, 225, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(66, 153, 225, 0.25);
+            background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-600);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Profile avatar */
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: var(--shadow);
+            border: 4px solid white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .avatar-edit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--secondary-color);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .avatar-edit:hover {
+            transform: scale(1.1);
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            background-color: var(--success-light);
+            color: var(--success-color);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-message i {
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar a {
+                padding: 0.8rem;
+                justify-content: center;
+                margin: 0.3rem auto;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+
+            .sidebar a i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+
+            .sidebar a span {
+                display: none;
+            }
+
+            .sidebar-brand {
+                padding: 1rem;
+                justify-content: center;
+            }
+
+            .sidebar-brand h2 {
+                display: none;
+            }
+
+            .sidebar-brand i {
+                margin-right: 0;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1.25rem 1.5rem;
+            }
+
+            .profile-header {
+                padding: 2.5rem 1.5rem 7rem;
+            }
+
+            .profile-body {
+                padding: 0 1.5rem 1.5rem;
+            }
+
+            .profile-card {
+                padding: 1.5rem;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .fade-in-1 {
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+            animation-delay: 0.1s;
+        }
+
+        .fade-in-2 {
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-gavel"></i>
+            <h2>VRP Associates</h2>
+        </div>
+        <a href="dashboard.html"><i class="fas fa-calendar-alt"></i> <span>Appointments</span></a>
+        <a href="profile.html" class="active"><i class="fas fa-user"></i> <span>Profile</span></a>
+        <a href="cases.html"><i class="fas fa-briefcase"></i> <span>Cases</span></a>
+        <a href="logout.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header Section -->
+        <div class="header fade-in">
+            <h2><i class="fas fa-user-circle"></i> Your Profile</h2>
+            <div class="header-subtitle">Manage and update your profile information</div>
+        </div>
+
+        <!-- Profile Information -->
+        <div class="content-box fade-in-1">
+            <div class="profile-header">
+                <div class="profile-title">
+                    <i class="fas fa-user-edit"></i> Profile Details
+                </div>
+                <div class="profile-subtitle">
+                    Keep your information up-to-date to ensure clients can contact you efficiently
+                </div>
+            </div>
+
+            <div class="profile-body fade-in-2">
+                <div class="profile-card">
+                    <!-- Success Message -->
+                    <div class="success-message" id="success-message">
+                        <i class="fas fa-check-circle"></i> Profile updated successfully!
+                    </div>
+
+                    <!-- Profile Avatar -->
+                    <div class="profile-avatar">
+                        <div class="avatar-placeholder" id="avatar-placeholder">JS</div>
+                        <div class="avatar-edit">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+
+                    <form id="profile-form">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <div class="section-title">
+                                <i class="fas fa-user"></i> Personal Information
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" id="name" class="form-control" placeholder="Enter your full name"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" id="email" class="form-control" placeholder="Your email address"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control"
+                                        placeholder="Enter your phone number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" id="address" class="form-control"
+                                        placeholder="Enter your address" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Professional Information -->
+                        <div class="form-section">
+                            <div class="section-title">
+                                <i class="fas fa-briefcase"></i> Professional Information
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="bio" class="form-label">Professional Bio</label>
+                                    <textarea id="bio" class="form-control" rows="4"
+                                        placeholder="Write something about your professional experience and expertise"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="specialization" class="form-label">Specialization</label>
+                                    <input type="text" id="specialization" class="form-control"
+                                        placeholder="E.g., Family Law, Criminal Law">
+                                </div>
+                                <div class="form-group">
+                                    <label for="experience" class="form-label">Years of Experience</label>
+                                    <input type="number" id="experience" class="form-control"
+                                        placeholder="Enter years of experience" min="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="btn-container">
+                            <button type="button" class="btn btn-outline" id="reset-btn">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="update-btn">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK and App Config -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+    <!-- Firebase Config -->
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgoPtXj4qy72gq_YEdwfIju2MQaUYbSd0",
+            authDomain: "ibase-29eaf.firebaseapp.com",
+            projectId: "ibase-29eaf",
+            storageBucket: "ibase-29eaf.appspot.com",
+            messagingSenderId: "347587111588",
+            appId: "1:347587111588:web:4ff899dd7951ab82699431",
+            measurementId: "G-XMN0596FV3"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        let currentUserId = null;
+        let userData = null;
+
+        // Helper function to get initials from name
+        function getInitials(name) {
+            if (!name) return "NA";
+            return name
+                .split(' ')
+                .map(word => word.charAt(0))
+                .join('')
+                .toUpperCase();
+        }
+
+        // Show the success message with animation
+        function showSuccessMessage() {
+            const successMessage = document.getElementById('success-message');
+            successMessage.style.display = 'block';
+
+            // Hide message after 4 seconds
+            setTimeout(() => {
+                successMessage.style.opacity = '0';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                    successMessage.style.opacity = '1';
+                }, 300);
+            }, 4000);
+        }
+
+        // Reset form to original user data
+        function resetForm() {
+            if (!userData) return;
+
+            document.getElementById('name').value = userData.name || "";
+            document.getElementById('email').value = userData.email || "";
+            document.getElementById('phone').value = userData.phone || "";
+            document.getElementById('address').value = userData.address || "";
+            document.getElementById('bio').value = userData.bio || "";
+            document.getElementById('specialization').value = userData.specialization || "";
+            document.getElementById('experience').value = userData.experience || "";
+        }
+
+        // Fetch and display the lawyer's profile details
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUserId = user.uid;
+                try {
+                    const userDoc = await db.collection('users').doc(user.uid).get();
+                    userData = userDoc.data();
+
+                    // Update avatar initials
+                    document.getElementById('avatar-placeholder').textContent = getInitials(userData.name);
+
+                    // Populate form fields
+                    resetForm();
+
+                    // Reset button event listener
+                    document.getElementById('reset-btn').addEventListener('click', resetForm);
+
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                    alert("Error loading your profile data. Please try again later.");
+                }
+            } else {
+                alert("You are not logged in. Redirecting to login page...");
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1000);
+            }
+        });
+
+        // Handle form submission for updating profile
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const bio = document.getElementById('bio').value;
+            const specialization = document.getElementById('specialization').value;
+            const experience = document.getElementById('experience').value;
+
+            // Update button state to loading
+            const updateBtn = document.getElementById('update-btn');
+            const originalBtnText = updateBtn.innerHTML;
+            updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            updateBtn.disabled = true;
+
+            try {
+                // Update user data in Firestore
+                await db.collection('users').doc(currentUserId).update({
+                    name,
+                    phone,
+                    address,
+                    bio,
+                    specialization,
+                    experience,
+                    updatedAt: new Date()
+                });
+
+                // Update avatar initials
+                document.getElementById('avatar-placeholder').textContent = getInitials(name);
+
+                // Update local userData object
+                userData = {
+                    ...userData,
+                    name,
+                    phone,
+                    address,
+                    bio,
+                    specialization,
+                    experience
+                };
+
+                // Show success message
+                showSuccessMessage();
+
+            } catch (error) {
+                console.error("Error updating profile: ", error);
+                alert("Failed to update profile. Please try again.");
+            } finally {
+                // Restore button state
+                updateBtn.innerHTML = originalBtnText;
+                updateBtn.disabled = false;
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

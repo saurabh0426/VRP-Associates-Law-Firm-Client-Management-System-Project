@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRP Associates Law Firm - Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c5282;
+            --secondary-color: #4299e1;
+            --accent-color: #ebf4ff;
+            --light-gray: #f7fafc;
+            --dark-gray: #4a5568;
+            --danger-color: #f56565;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .login-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .login-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .login-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-header h1 i {
+            margin-right: 12px;
+        }
+
+        .login-header p {
+            margin: 10px 0 0;
+            opacity: 0.8;
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        .login-form {
+            padding: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .input-group:focus-within {
+            box-shadow: 0 3px 8px rgba(66, 153, 225, 0.2);
+        }
+
+        .input-group-text {
+            background-color: white;
+            border: none;
+            border-right: 1px solid #e2e8f0;
+            color: var(--dark-gray);
+        }
+
+        .form-control {
+            border: none;
+            padding: 12px 15px;
+            font-size: 15px;
+            height: auto;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+        .btn-login {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(44, 82, 130, 0.2);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(44, 82, 130, 0.25);
+        }
+
+        .btn-login:active {
+            transform: translateY(1px);
+        }
+
+        .form-check {
+            margin-bottom: 20px;
+        }
+
+        .form-check-label {
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .forgot-password a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .help-text {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #a0aec0;
+            font-size: 12px;
+        }
+
+        /* Additional design elements */
+        .login-decorator {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-color), rgba(255, 255, 255, 0.2));
+            opacity: 0.4;
+        }
+
+        .decorator-1 {
+            top: -50px;
+            left: -50px;
+        }
+
+        .decorator-2 {
+            bottom: -60px;
+            right: -60px;
+            width: 120px;
+            height: 120px;
+        }
+
+        /* Animation for error message */
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 14px;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(245, 101, 101, 0.1);
+            display: none;
+            animation: shake 0.6s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Decorative elements -->
+        <div class="login-decorator decorator-1"></div>
+        <div class="login-decorator decorator-2"></div>
+
+        <div class="login-header">
+            <h1><i class="fas fa-gavel"></i> VRP Associates</h1>
+            <p>Legal expertise at your service</p>
+        </div>
+
+        <div class="login-form">
+            <form id="login-form">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <input type="email" id="email" class="form-control" placeholder="Your email address" required>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" id="password" class="form-control" placeholder="Your password" required>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">
+                        Remember me on this device
+                    </label>
+                </div>
+
+                <div id="error-message" class="error-message">
+                    <i class="fas fa-exclamation-circle"></i> Invalid email or password. Please try again.
+                </div>
+
+                <button type="submit" class="btn btn-login w-100">
+                    <span>Sign In</span> <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+
+                <div class="forgot-password">
+                    <a href="#">Forgot your password?</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="help-text">
+            <i class="fas fa-headset me-1"></i> Need help? Contact IT support
+        </div>
+    </div>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgoPtXj4qy72gq_YEdwfIju2MQaUYbSd0",
+            authDomain: "ibase-29eaf.firebaseapp.com",
+            databaseURL: "https://ibase-29eaf-default-rtdb.firebaseio.com",
+            projectId: "ibase-29eaf",
+            storageBucket: "ibase-29eaf.appspot.com",
+            messagingSenderId: "347587111588",
+            appId: "1:347587111588:web:4ff899dd7951ab82699431",
+            measurementId: "G-XMN0596FV3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Handle login form submission
+        document.getElementById("login-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            // Show loading state
+            const button = this.querySelector('.btn-login');
+            const originalContent = button.innerHTML;
+            button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Signing in...';
+            button.disabled = true;
+
+            // Hide any previous error
+            document.getElementById("error-message").style.display = "none";
+
+            // Get email and password from the input fields
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                // Sign in using Firebase Authentication
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Fetch user data from Firestore to check the role
+                const userDocRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userDocRef);
+
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    const role = userData.role; // Assuming 'role' field contains 'admin', 'lawyer', or 'client'
+
+                    if (role === 'admin') {
+                        window.location.href = "admin/dashboard.html";
+                    } else if (role === 'lawyer') {
+                        window.location.href = "lawyer/dashboard.html";
+                    } else if (role === 'client') {
+                        window.location.href = "client/dashboard.html";
+                    } else {
+                        showError("Unknown role. Access denied.");
+                    }
+                } else {
+                    showError("No user data found.");
+                }
+            } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("Error: ", errorCode, errorMessage);
+
+                // Show user-friendly error message
+                let message = "Login failed. Please try again.";
+                if (errorCode === 'auth/invalid-email' || errorCode === 'auth/user-not-found' || errorCode === 'auth/wrong-password') {
+                    message = "Invalid email or password. Please try again.";
+                } else if (errorCode === 'auth/too-many-requests') {
+                    message = "Too many failed login attempts. Please try again later.";
+                }
+
+                showError(message);
+
+                // Reset button state
+                button.innerHTML = originalContent;
+                button.disabled = false;
+            }
+        });
+
+        // Function to show error message
+        function showError(message) {
+            const errorElement = document.getElementById("error-message");
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+
+            // Reset button state
+            const button = document.querySelector('.btn-login');
+            button.innerHTML = '<span>Sign In</span> <i class="fas fa-arrow-right ms-2"></i>';
+            button.disabled = false;
+
+            // Apply shake animation
+            errorElement.style.animation = 'none';
+            setTimeout(() => {
+                errorElement.style.animation = 'shake 0.6s';
+            }, 10);
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

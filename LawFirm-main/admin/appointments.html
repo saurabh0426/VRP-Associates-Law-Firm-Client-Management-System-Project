@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments - Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c5282;
+            --primary-light: #4a69bd;
+            --primary-dark: #1a365d;
+            --secondary-color: #4299e1;
+            --accent-color: #ebf8ff;
+            --success-color: #48bb78;
+            --warning-color: #ecc94b;
+            --danger-color: #f56565;
+            --dark-color: #2d3748;
+            --light-color: #f7fafc;
+            --gray-100: #f7fafc;
+            --gray-200: #edf2f7;
+            --gray-300: #e2e8f0;
+            --gray-400: #cbd5e0;
+            --gray-500: #a0aec0;
+            --gray-600: #718096;
+            --gray-700: #4a5568;
+            --gray-800: #2d3748;
+            --gray-900: #1a202c;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: white;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-brand i {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            color: var(--secondary-color);
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+        }
+
+        .sidebar-brand h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: var(--gray-300);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            margin: 0.2rem 0;
+            border-radius: 0 30px 30px 0;
+            transition: var(--transition);
+        }
+
+        .sidebar a i {
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+            width: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: white;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            border-left: 4px solid var(--secondary-color);
+            font-weight: 500;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .sidebar a.active i {
+            color: var(--secondary-color);
+        }
+
+        /* Main content styles */
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h2:after {
+            content: '';
+            position: absolute;
+            width: 40%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            bottom: -6px;
+            left: 0;
+            border-radius: 10px;
+        }
+
+        .header .user-welcome {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .header .user-welcome:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .header .user-welcome span {
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+
+        .header .user-welcome i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Content box styles */
+        .content-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease-out;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-box h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-box h4:after {
+            content: '';
+            position: absolute;
+            width: 30%;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            border-radius: 10px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 250px;
+            padding: 0.6rem 1rem 0.6rem 2.8rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            background-color: var(--gray-100);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+            background-color: white;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-500);
+            transition: var(--transition);
+        }
+
+        .search-box input:focus+i {
+            color: var(--primary-color);
+        }
+
+        /* Table styles */
+        .table-responsive {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+            color: white;
+        }
+
+        .table thead th {
+            padding: 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            border: none;
+            vertical-align: middle;
+        }
+
+        .table tbody tr {
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--gray-50);
+            transform: scale(1.005);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+        }
+
+        /* Status badges */
+        .status-badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-scheduled {
+            background-color: rgba(236, 201, 75, 0.15);
+            color: var(--warning-color);
+        }
+
+        .status-accepted {
+            background-color: rgba(72, 187, 120, 0.15);
+            color: var(--success-color);
+        }
+
+        .status-transferred {
+            background-color: rgba(66, 153, 225, 0.15);
+            color: var(--secondary-color);
+        }
+
+        .status-declined {
+            background-color: rgba(245, 101, 101, 0.15);
+            color: var(--danger-color);
+        }
+
+        /* Button styles */
+        .btn {
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.45rem 1rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn:focus {
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+            border: none;
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 153, 225, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(to right, #38a169, #48bb78);
+            border: none;
+            box-shadow: 0 4px 10px rgba(72, 187, 120, 0.25);
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(to right, #48bb78, #38a169);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(72, 187, 120, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(to right, #e53e3e, #f56565);
+            border: none;
+            box-shadow: 0 4px 10px rgba(245, 101, 101, 0.25);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(to right, #f56565, #e53e3e);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 101, 101, 0.3);
+        }
+
+        .btn-sm {
+            padding: 0.35rem 0.85rem;
+            font-size: 0.75rem;
+        }
+
+        .btn i {
+            font-size: 0.85rem;
+        }
+
+        /* Action buttons */
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        /* Modal styles */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+            color: white;
+            border-radius: 12px 12px 0 0;
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: 0.75rem;
+        }
+
+        .modal-body p:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .modal-body p strong {
+            color: var(--primary-dark);
+            min-width: 120px;
+        }
+
+        .modal-body p span {
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .modal-footer .btn {
+            margin-right: 0.5rem;
+        }
+
+        .modal-footer .dropdown {
+            position: relative;
+            flex-grow: 1;
+        }
+
+        .modal-footer .form-select {
+            border-radius: 50px;
+            padding: 0.55rem 1rem;
+            border: 1px solid var(--gray-300);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            box-shadow: none;
+            transition: var(--transition);
+        }
+
+        .modal-footer .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        }
+
+        #transfer-btn {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border: none;
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.25);
+            margin-left: 0.5rem;
+        }
+
+        #transfer-btn:hover {
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 153, 225, 0.3);
+        }
+
+        /* No data state */
+        .no-data {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .no-data i {
+            font-size: 3rem;
+            color: var(--gray-400);
+            margin-bottom: 1rem;
+        }
+
+        .no-data p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(66, 153, 225, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-brand h2 {
+                display: none;
+            }
+
+            .sidebar-brand {
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .sidebar-brand i {
+                margin-right: 0;
+            }
+
+            .sidebar a {
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .sidebar a i {
+                margin-right: 0;
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .content-actions {
+                width: 100%;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .table thead th:nth-child(3),
+            .table tbody td:nth-child(3) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .table thead th:nth-child(2),
+            .table tbody td:nth-child(2),
+            .table thead th:nth-child(5),
+            .table tbody td:nth-child(5) {
+                display: none;
+            }
+
+            .action-btns {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .action-btns .btn {
+                width: 100%;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            #transfer-btn {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-gavel"></i>
+            <h2>VRP Associates</h2>
+        </div>
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="appointments.html" class="active"><i class="fas fa-calendar-alt"></i> Appointments</a>
+        <a href="newUser.html"><i class="fas fa-user-tie"></i> Clients</a>
+        <a href="newLawyer.html"><i class="fas fa-gavel"></i> Lawyers</a>
+        <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header Section -->
+        <div class="header">
+            <h2>Appointments</h2>
+            <div class="user-welcome">
+                <i class="fas fa-user-circle"></i>
+                <span>Welcome, Admin</span>
+            </div>
+        </div>
+
+        <!-- Appointments Content -->
+        <div class="content-box">
+            <div class="content-header">
+                <h4>Manage Appointments</h4>
+                <div class="content-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search appointments..." id="searchAppointments">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <button class="btn btn-primary" id="refresh-btn">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Email</th>
+                            <th>Case Title</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointment-list">
+                        <!-- Loading indicator will be replaced with appointments -->
+                        <tr>
+                            <td colspan="7">
+                                <div class="loading">
+                                    <div class="spinner"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Appointment Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">
+                        <i class="fas fa-calendar-check me-2"></i>
+                        Review Appointment
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong>Client Name</strong>
+                        <span id="modal-client-name">John Doe</span>
+                    </p>
+                    <p>
+                        <strong>Case Title</strong>
+                        <span id="modal-case-title">Personal Injury Claim</span>
+                    </p>
+                    <p>
+                        <strong>Date</strong>
+                        <span id="modal-date">2023-06-15</span>
+                    </p>
+                    <p>
+                        <strong>Time</strong>
+                        <span id="modal-time">14:30</span>
+                    </p>
+                    <p>
+                        <strong>Status</strong>
+                        <span id="modal-status" class="status-badge status-scheduled">Scheduled</span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="decline-btn">
+                        <i class="fas fa-times"></i> Decline
+                    </button>
+                    <button type="button" class="btn btn-success" id="accept-btn">
+                        <i class="fas fa-check"></i> Accept
+                    </button>
+                    <!-- Dropdown for assigning lawyer (appears when accepted) -->
+                    <div class="dropdown">
+                        <select class="form-select" id="lawyer-dropdown">
+                            <option selected>Select Lawyer</option>
+                            <!-- Lawyer names will be populated here -->
+                        </select>
+                    </div>
+                    <!-- Transfer Case Button -->
+                    <button id="transfer-btn" class="btn btn-primary">
+                        <i class="fas fa-exchange-alt"></i> Transfer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- App functionality -->
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgoPtXj4qy72gq_YEdwfIju2MQaUYbSd0",
+            authDomain: "ibase-29eaf.firebaseapp.com",
+            databaseURL: "https://ibase-29eaf-default-rtdb.firebaseio.com",
+            projectId: "ibase-29eaf",
+            storageBucket: "ibase-29eaf.appspot.com",
+            messagingSenderId: "347587111588",
+            appId: "1:347587111588:web:4ff899dd7951ab82699431",
+            measurementId: "G-XMN0596FV3"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Fetch and display appointment data
+        async function loadAppointments() {
+            const appointmentsTable = document.getElementById('appointment-list');
+            appointmentsTable.innerHTML = `
+                <tr>
+                    <td colspan="7">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+
+            try {
+                const querySnapshot = await db.collection("appointments").get();
+
+                // Clear the loading indicator
+                appointmentsTable.innerHTML = '';
+
+                // Check if there are any appointments
+                if (querySnapshot.empty) {
+                    appointmentsTable.innerHTML = `
+                        <tr>
+                            <td colspan="7">
+                                <div class="no-data">
+                                    <i class="fas fa-calendar-times"></i>
+                                    <p>No appointments found</p>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                // Populate the table with appointment data
+                querySnapshot.forEach((doc) => {
+                    const appointment = doc.data();
+                    const status = appointment.status || "Scheduled";
+
+                    // Determine status class for badge styling
+                    let statusClass = 'status-scheduled';
+                    if (status.toLowerCase() === 'accepted') statusClass = 'status-accepted';
+                    if (status.toLowerCase() === 'transferred') statusClass = 'status-transferred';
+                    if (status.toLowerCase() === 'declined') statusClass = 'status-declined';
+
+                    appointmentsTable.innerHTML += `
+                        <tr>
+                            <td>${appointment.name || "N/A"}</td>
+                            <td>${appointment.email || "N/A"}</td>
+                            <td>${appointment.caseTitle || "N/A"}</td>
+                            <td>${appointment.appointmentDate}</td>
+                            <td>${appointment.appointmentTime}</td>
+                            <td><span class="status-badge ${statusClass}">${status}</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn btn-primary btn-sm" onclick="openReviewModal('${doc.id}', '${appointment.name || "N/A"}', '${appointment.caseTitle || "N/A"}', '${appointment.appointmentDate}', '${appointment.appointmentTime}', '${status}')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteAppointment('${doc.id}')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error fetching appointments:", error);
+                appointmentsTable.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="no-data">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <p>Error loading appointments. Please try again.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Fetch and populate lawyer names in dropdown
+        async function populateLawyerDropdown() {
+            const dropdown = document.getElementById('lawyer-dropdown');
+            dropdown.innerHTML = '<option selected>Select Lawyer</option>'; // Reset dropdown
+
+            try {
+                const querySnapshot = await db.collection("users").where("role", "==", "lawyer").get();
+
+                if (querySnapshot.empty) {
+                    const option = document.createElement("option");
+                    option.text = "No lawyers available";
+                    option.disabled = true;
+                    dropdown.appendChild(option);
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const lawyer = doc.data();
+                    const option = document.createElement("option");
+                    option.value = lawyer.name;
+                    option.text = lawyer.name;
+                    dropdown.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Error fetching lawyers:", error);
+                const option = document.createElement("option");
+                option.text = "Error loading lawyers";
+                option.disabled = true;
+                dropdown.appendChild(option);
+            }
+        }
+
+        // Global function to open the review modal
+        function openReviewModal(docId, clientName, caseTitle, date, time, status) {
+            // Set modal content
+            document.getElementById('modal-client-name').textContent = clientName;
+            document.getElementById('modal-case-title').textContent = caseTitle;
+            document.getElementById('modal-date').textContent = date;
+            document.getElementById('modal-time').textContent = time;
+
+            // Set status with appropriate styling
+            const statusElement = document.getElementById('modal-status');
+            statusElement.textContent = status;
+
+            // Reset status classes
+            statusElement.className = 'status-badge';
+
+            // Add appropriate status class
+            if (status.toLowerCase() === 'scheduled') statusElement.classList.add('status-scheduled');
+            else if (status.toLowerCase() === 'accepted') statusElement.classList.add('status-accepted');
+            else if (status.toLowerCase() === 'transferred') statusElement.classList.add('status-transferred');
+            else if (status.toLowerCase() === 'declined') statusElement.classList.add('status-declined');
+
+            // Initialize modal and show it
+            const modal = new bootstrap.Modal(document.getElementById('reviewModal'));
+            modal.show();
+
+            // Hide lawyer dropdown and transfer button initially
+            document.querySelector('.modal-footer .dropdown').style.display = 'none';
+            document.getElementById('transfer-btn').style.display = 'none';
+
+            // Show lawyer dropdown when Accept is clicked
+            document.getElementById('accept-btn').onclick = () => {
+                populateLawyerDropdown(); // Populate the lawyer dropdown
+                document.querySelector('.modal-footer .dropdown').style.display = 'block';
+
+                // Update status to Accepted
+                statusElement.textContent = 'Accepted';
+                statusElement.className = 'status-badge status-accepted';
+
+                // Try to update in Firestore
+                try {
+                    db.collection("appointments").doc(docId).update({
+                        status: "Accepted"
+                    });
+                } catch (error) {
+                    console.error("Error updating status:", error);
+                }
+            };
+
+            // Show Transfer button when a lawyer is selected
+            document.getElementById('lawyer-dropdown').onchange = () => {
+                document.getElementById('transfer-btn').style.display = 'inline-block';
+            };
+
+            // Handle transfer button click
+            document.getElementById('transfer-btn').onclick = async () => {
+                const selectedLawyer = document.getElementById('lawyer-dropdown').value;
+                if (selectedLawyer !== "Select Lawyer") {
+                    try {
+                        await db.collection("appointments").doc(docId).update({
+                            lawyerAssigned: selectedLawyer,
+                            status: "Transferred"
+                        });
+
+                        // Show success message with smooth animation
+                        const modalBody = document.querySelector('.modal-body');
+                        const successMsg = document.createElement('div');
+                        successMsg.className = 'alert alert-success mt-3';
+                        successMsg.innerHTML = `<i class="fas fa-check-circle me-2"></i> Case successfully transferred to ${selectedLawyer}`;
+                        successMsg.style.opacity = '0';
+                        successMsg.style.transition = 'opacity 0.3s ease';
+                        modalBody.appendChild(successMsg);
+
+                        // Fade in animation
+                        setTimeout(() => {
+                            successMsg.style.opacity = '1';
+                        }, 10);
+
+                        // Update status in modal
+                        statusElement.textContent = 'Transferred';
+                        statusElement.className = 'status-badge status-transferred';
+
+                        // Reload appointments after a short delay
+                        setTimeout(() => {
+                            loadAppointments();
+                        }, 1500);
+                    } catch (error) {
+                        console.error("Error transferring case: ", error);
+
+                        // Show error message
+                        const modalBody = document.querySelector('.modal-body');
+                        const errorMsg = document.createElement('div');
+                        errorMsg.className = 'alert alert-danger mt-3';
+                        errorMsg.innerHTML = `<i class="fas fa-exclamation-circle me-2"></i> Failed to transfer the case. Please try again.`;
+                        modalBody.appendChild(errorMsg);
+                    }
+                } else {
+                    // Show validation error
+                    const dropdown = document.getElementById('lawyer-dropdown');
+                    dropdown.style.borderColor = '#f56565';
+                    dropdown.style.boxShadow = '0 0 0 3px rgba(245, 101, 101, 0.2)';
+
+                    // Reset validation styling after a short delay
+                    setTimeout(() => {
+                        dropdown.style.borderColor = '';
+                        dropdown.style.boxShadow = '';
+                    }, 3000);
+                }
+            };
+
+            // Handle decline button click
+            document.getElementById('decline-btn').onclick = async () => {
+                try {
+                    await db.collection("appointments").doc(docId).update({
+                        status: "Declined"
+                    });
+
+                    // Update status in modal
+                    statusElement.textContent = 'Declined';
+                    statusElement.className = 'status-badge status-declined';
+
+                    // Show declined message
+                    const modalBody = document.querySelector('.modal-body');
+                    const declinedMsg = document.createElement('div');
+                    declinedMsg.className = 'alert alert-warning mt-3';
+                    declinedMsg.innerHTML = `<i class="fas fa-info-circle me-2"></i> Appointment has been declined`;
+                    declinedMsg.style.opacity = '0';
+                    declinedMsg.style.transition = 'opacity 0.3s ease';
+                    modalBody.appendChild(declinedMsg);
+
+                    // Fade in animation
+                    setTimeout(() => {
+                        declinedMsg.style.opacity = '1';
+                    }, 10);
+
+                    // Reload appointments after a short delay
+                    setTimeout(() => {
+                        loadAppointments();
+                    }, 1500);
+                } catch (error) {
+                    console.error("Error declining appointment:", error);
+                }
+            };
+        }
+
+        // Function to delete an appointment with confirmation
+        async function deleteAppointment(docId) {
+            // Create a custom confirmation dialog
+            const confirmDialog = document.createElement('div');
+            confirmDialog.className = 'modal fade';
+            confirmDialog.id = 'deleteConfirmModal';
+            confirmDialog.setAttribute('tabindex', '-1');
+            confirmDialog.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                <i class="fas fa-trash me-2"></i>
+                                Confirm Deletion
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this appointment? This action cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" id="confirmDelete">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(confirmDialog);
+            const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+            modal.show();
+
+            // Handle delete confirmation
+            document.getElementById('confirmDelete').onclick = async () => {
+                try {
+                    // Show loading state
+                    document.getElementById('confirmDelete').innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Deleting...';
+                    document.getElementById('confirmDelete').disabled = true;
+
+                    await db.collection("appointments").doc(docId).delete();
+
+                    // Close modal
+                    modal.hide();
+
+                    // Show success toast
+                    const toast = document.createElement('div');
+                    toast.className = 'position-fixed bottom-0 end-0 p-3';
+                    toast.style.zIndex = '5';
+                    toast.innerHTML = `
+                        <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    <i class="fas fa-check-circle me-2"></i> Appointment deleted successfully!
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+
+                    const toastElement = new bootstrap.Toast(toast.querySelector('.toast'));
+                    toastElement.show();
+
+                    // Remove toast after it's hidden
+                    toast.addEventListener('hidden.bs.toast', function () {
+                        toast.remove();
+                    });
+
+                    // Reload appointments
+                    loadAppointments();
+
+                    // Remove the modal from DOM after hiding
+                    document.getElementById('deleteConfirmModal').addEventListener('hidden.bs.modal', function () {
+                        document.getElementById('deleteConfirmModal').remove();
+                    });
+                } catch (error) {
+                    console.error("Error deleting appointment: ", error);
+
+                    // Show error message
+                    document.querySelector('#deleteConfirmModal .modal-body').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i> Error deleting appointment. Please try again.
+                        </div>
+                    `;
+
+                    // Reset button
+                    document.getElementById('confirmDelete').innerHTML = '<i class="fas fa-trash"></i> Delete';
+                    document.getElementById('confirmDelete').disabled = false;
+                }
+            };
+
+            // Clean up modal from DOM when closed
+            document.getElementById('deleteConfirmModal').addEventListener('hidden.bs.modal', function () {
+                document.getElementById('deleteConfirmModal').remove();
+            });
+        }
+
+        // Add search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('searchAppointments');
+            if (!searchInput) return;
+
+            searchInput.addEventListener('input', function (e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll('#appointment-list tr:not(.no-results)');
+
+                let foundResults = false;
+
+                rows.forEach(row => {
+                    if (!row.querySelector('td .loading')) { // Skip the loading row
+                        const text = row.textContent.toLowerCase();
+                        if (text.includes(searchTerm)) {
+                            row.style.display = '';
+                            foundResults = true;
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    }
+                });
+
+                // Show no results message if needed
+                const noResultsRow = document.querySelector('#appointment-list tr.no-results');
+                if (!foundResults && !noResultsRow && rows.length > 0 && !document.querySelector('#appointment-list td .loading')) {
+                    const tbody = document.getElementById('appointment-list');
+                    const newRow = document.createElement('tr');
+                    newRow.className = 'no-results';
+                    newRow.innerHTML = `
+                        <td colspan="7">
+                            <div class="no-data">
+                                <i class="fas fa-search"></i>
+                                <p>No appointments match your search</p>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(newRow);
+                } else if (foundResults && noResultsRow) {
+                    noResultsRow.remove();
+                }
+            });
+        }
+
+        // Handle refresh button
+        function setupRefreshButton() {
+            const refreshBtn = document.getElementById('refresh-btn');
+            if (!refreshBtn) return;
+
+            refreshBtn.addEventListener('click', function () {
+                // Show loading state
+                this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Refreshing...';
+                this.disabled = true;
+
+                // Reload appointments
+                loadAppointments().then(() => {
+                    // Reset button state
+                    this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+                    this.disabled = false;
+                });
+            });
+        }
+
+        // Initialize on document load
+        document.addEventListener("DOMContentLoaded", function () {
+            loadAppointments();
+            setupSearch();
+            setupRefreshButton();
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

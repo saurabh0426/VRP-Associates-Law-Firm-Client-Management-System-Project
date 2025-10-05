@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments - Client Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3a5998;
+            --primary-light: #5e79b5;
+            --primary-dark: #2a4278;
+            --secondary-color: #4299e1;
+            --accent-color: #ebf8ff;
+            --success-color: #48bb78;
+            --warning-color: #ecc94b;
+            --danger-color: #f56565;
+            --dark-color: #2d3748;
+            --light-color: #f7fafc;
+            --gray-100: #f7fafc;
+            --gray-200: #edf2f7;
+            --gray-300: #e2e8f0;
+            --gray-400: #cbd5e0;
+            --gray-500: #a0aec0;
+            --gray-600: #718096;
+            --gray-700: #4a5568;
+            --gray-800: #2d3748;
+            --gray-900: #1a202c;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: white;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            padding-top: 1.5rem;
+        }
+
+        .sidebar-brand {
+            padding: 1rem 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-brand i {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            color: var(--secondary-color);
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+        }
+
+        .sidebar-brand h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+            color: white;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: var(--gray-300);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            margin: 0.2rem 0;
+            border-radius: 0 30px 30px 0;
+            transition: var(--transition);
+        }
+
+        .sidebar a i {
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+            width: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: white;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            border-left: 4px solid var(--secondary-color);
+            font-weight: 500;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .sidebar a.active i {
+            color: var(--secondary-color);
+        }
+
+        /* Main content styles */
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h2:after {
+            content: '';
+            position: absolute;
+            width: 40%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            bottom: -6px;
+            left: 0;
+            border-radius: 10px;
+        }
+
+        .header .user-welcome {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            background: white;
+            padding: 0.8rem 1.3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .header .user-welcome:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .header .user-welcome #client-name {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+        }
+
+        .header .user-welcome #client-email {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            margin-top: 0.2rem;
+        }
+
+        /* Content box styles */
+        .content-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease-out;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-box h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-box h4:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            border-radius: 10px;
+        }
+
+        /* Form styling */
+        .form-control {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Button styling */
+        .btn {
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+            border: none;
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 153, 225, 0.3);
+        }
+
+        /* Table styling */
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+        }
+
+        .table thead th {
+            color: white;
+            font-weight: 500;
+            padding: 1rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            border: none;
+        }
+
+        .table tbody tr {
+            transition: var(--transition);
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--gray-50);
+            transform: scale(1.005);
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-top: 1px solid var(--gray-200);
+            font-size: 0.9rem;
+        }
+
+        .table-bordered {
+            border: 1px solid var(--gray-200);
+        }
+
+        /* Status indicators */
+        .status-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-scheduled {
+            background-color: rgba(236, 201, 75, 0.15);
+            color: #d69e2e;
+        }
+
+        .status-accepted {
+            background-color: rgba(72, 187, 120, 0.15);
+            color: #38a169;
+        }
+
+        /* Join meeting button */
+        .join-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(to right, #38a169, #48bb78);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(56, 161, 105, 0.3);
+        }
+
+        .join-btn:hover {
+            background: linear-gradient(to right, #48bb78, #38a169);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(56, 161, 105, 0.4);
+            color: white;
+        }
+
+        .join-btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* No appointments message */
+        .no-data {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-500);
+        }
+
+        .no-data i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gray-400);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-brand h2 {
+                display: none;
+            }
+
+            .sidebar a span {
+                display: none;
+            }
+
+            .sidebar a {
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .sidebar a i {
+                margin-right: 0;
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .header .user-welcome {
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            .content-box {
+                padding: 1.5rem;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 1rem;
+                margin-left: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 0.5rem;
+            }
+
+            .sidebar-brand {
+                display: none;
+            }
+
+            .sidebar {
+                display: flex;
+                justify-content: space-around;
+                padding: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .sidebar a {
+                padding: 1rem 0.5rem;
+                margin: 0;
+                border-radius: 0;
+                flex-direction: column;
+                font-size: 0.7rem;
+            }
+
+            .sidebar a i {
+                margin-right: 0;
+                margin-bottom: 0.25rem;
+            }
+
+            .sidebar a span {
+                display: block;
+                font-size: 0.7rem;
+            }
+
+            .sidebar a.active {
+                border-left: none;
+                border-bottom: 3px solid var(--secondary-color);
+            }
+
+            .header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-gavel"></i>
+            <h2>Legal Services</h2>
+        </div>
+        <a href="dashboard.html"><i class="fas fa-home"></i> <span>Home</span></a>
+        <a href="appointments.html" class="active"><i class="fas fa-calendar-alt"></i> <span>Appointments</span></a>
+        <a href="logout.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <!-- Header Section -->
+        <div class="header">
+            <h2>Appointments</h2>
+            <div class="user-welcome">
+                <span id="client-name">Welcome, Client!</span>
+                <span id="client-email"></span>
+            </div>
+        </div>
+
+        <!-- Schedule New Appointment -->
+        <div class="content-box">
+            <h4>Request New Appointment</h4>
+            <form id="appointment-form">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="case-title" class="form-label">Case Title</label>
+                        <input type="text" class="form-control" id="case-title" placeholder="Enter case title" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="appointment-date" class="form-label">Appointment Date</label>
+                        <input type="date" class="form-control" id="appointment-date" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="appointment-time" class="form-label">Appointment Time</label>
+                        <input type="time" class="form-control" id="appointment-time" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-calendar-plus me-2"></i> Request Appointment
+                </button>
+            </form>
+        </div>
+
+        <!-- Scheduled Appointments -->
+        <div class="content-box">
+            <h4>Scheduled Appointments</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Case Title</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduled-appointments-list">
+                        <!-- Scheduled appointments will be dynamically injected here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="no-scheduled" class="no-data" style="display: none;">
+                <i class="fas fa-calendar-times"></i>
+                <p>No scheduled appointments found</p>
+            </div>
+        </div>
+
+        <!-- Appointment History -->
+        <div class="content-box">
+            <h4>Appointment History</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Case Title</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointment-history-list">
+                        <!-- Appointment history will be dynamically injected here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="no-history" class="no-data" style="display: none;">
+                <i class="fas fa-history"></i>
+                <p>No appointment history found</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK and App Config -->
+    <script type="module">
+        // Import Firebase dependencies
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgoPtXj4qy72gq_YEdwfIju2MQaUYbSd0",
+            authDomain: "ibase-29eaf.firebaseapp.com",
+            databaseURL: "https://ibase-29eaf-default-rtdb.firebaseio.com",
+            projectId: "ibase-29eaf",
+            storageBucket: "ibase-29eaf.appspot.com",
+            messagingSenderId: "347587111588",
+            appId: "1:347587111588:web:4ff899dd7951ab82699431",
+            measurementId: "G-XMN0596FV3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Set minimum date for appointment date picker to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointment-date').setAttribute('min', today);
+
+        // Track logged-in user and update name/email on page
+        let currentUser = null; // Store the logged-in user details
+        let userName = null; // Store the user's name from Firestore
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user; // Store the user for later
+                document.getElementById('client-email').textContent = user.email;
+
+                // Fetch the user document from Firestore based on their email
+                const q = query(collection(db, "users"), where("email", "==", user.email));
+                const querySnapshot = await getDocs(q);
+
+                // Assuming there's only one matching user document
+                if (!querySnapshot.empty) {
+                    const userData = querySnapshot.docs[0].data();
+                    userName = userData.name || "Anonymous"; // Get the name from Firestore
+                    document.getElementById('client-name').textContent = `Welcome, ${userName}!`;
+                }
+
+                // Load appointments after user authentication
+                loadScheduledAppointments();
+                loadAppointmentHistory();
+            } else {
+                // Redirect to login page if user is not logged in
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Function to submit appointment request
+        document.getElementById("appointment-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            // Show loading state on button
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Submitting...';
+            submitBtn.disabled = true;
+
+            const caseTitle = document.getElementById("case-title").value;
+            const appointmentDate = document.getElementById("appointment-date").value;
+            const appointmentTime = document.getElementById("appointment-time").value;
+
+            if (currentUser && userName) {
+                try {
+                    // Add a new document with appointment details, including the user's name and email
+                    await addDoc(collection(db, "appointments"), {
+                        caseTitle,
+                        appointmentDate,
+                        appointmentTime,
+                        status: "Scheduled",
+                        name: userName, // Using the name from Firestore
+                        email: currentUser.email,
+                        timestamp: new Date()
+                    });
+
+                    // Show success message
+                    showNotification('Appointment requested successfully!', 'success');
+
+                    // Reset form
+                    document.getElementById("appointment-form").reset();
+
+                    // Reload appointments
+                    loadScheduledAppointments();
+                } catch (error) {
+                    console.error("Error requesting appointment: ", error);
+                    showNotification('Error requesting appointment. Please try again.', 'error');
+                } finally {
+                    // Reset button state
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            }
+        });
+
+        // Function to show notification
+        function showNotification(message, type = 'success') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} notification`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                ${message}
+            `;
+
+            // Style the notification
+            Object.assign(notification.style, {
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                zIndex: '9999',
+                padding: '1rem 2rem',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                opacity: '0',
+                transition: 'opacity 0.3s ease'
+            });
+
+            // Add to body
+            document.body.appendChild(notification);
+
+            // Fade in
+            setTimeout(() => {
+                notification.style.opacity = '1';
+            }, 10);
+
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // Function to format date for display
+        function formatDate(dateString) {
+            const [year, month, day] = dateString.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+        // Function to load scheduled appointments
+        async function loadScheduledAppointments() {
+            const appointmentsTable = document.getElementById('scheduled-appointments-list');
+            appointmentsTable.innerHTML = '';  // Clear the table
+
+            const noScheduled = document.getElementById('no-scheduled');
+
+            if (!currentUser) return; // Exit if no user is logged in
+
+            try {
+                const q = query(
+                    collection(db, "appointments"),
+                    where("email", "==", currentUser.email),
+                    where("status", "==", "Scheduled")
+                );
+
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    noScheduled.style.display = 'block';
+                    return;
+                }
+
+                noScheduled.style.display = 'none';
+
+                querySnapshot.forEach((doc) => {
+                    const appointment = doc.data();
+                    appointmentsTable.innerHTML += `
+                        <tr>
+                            <td>${appointment.caseTitle}</td>
+                            <td>${formatDate(appointment.appointmentDate)}</td>
+                            <td>${appointment.appointmentTime}</td>
+                            <td><span class="status-badge status-scheduled">${appointment.status}</span></td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error loading scheduled appointments:", error);
+                showNotification('Error loading appointments. Please refresh the page.', 'error');
+            }
+        }
+
+        // Function to load appointment history
+        async function loadAppointmentHistory() {
+            const historyTable = document.getElementById('appointment-history-list');
+            historyTable.innerHTML = '';  // Clear the table
+
+            const noHistory = document.getElementById('no-history');
+
+            if (!currentUser) return; // Exit if no user is logged in
+
+            try {
+                const q = query(
+                    collection(db, "appointments"),
+                    where("email", "==", currentUser.email),
+                    where("status", "==", "Accepted")
+                );
+
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    noHistory.style.display = 'block';
+                    return;
+                }
+
+                noHistory.style.display = 'none';
+
+                querySnapshot.forEach((doc) => {
+                    const appointment = doc.data();
+                    const appointmentDate = new Date(`${appointment.appointmentDate}T${appointment.appointmentTime}`);
+                    const currentTime = new Date();
+                    const timeDiff = (appointmentDate - currentTime) / (1000 * 60); // Difference in minutes
+
+                    let actionButton = '';
+                    if (appointment.meetingUrl && timeDiff <= 30 && timeDiff >= -60) {
+                        actionButton = `<a href="${appointment.meetingUrl}" target="_blank" class="join-btn">
+                            <i class="fas fa-video"></i> Join Meeting
+                        </a>`;
+                    } else if (timeDiff > 30) {
+                        actionButton = `<span class="status-badge" style="background-color: rgba(66, 153, 225, 0.15); color: #4299e1;">
+                            <i class="fas fa-clock me-1"></i> Upcoming
+                        </span>`;
+                    } else {
+                        actionButton = `<span class="status-badge" style="background-color: rgba(160, 174, 192, 0.15); color: #718096;">
+                            <i class="fas fa-check-circle me-1"></i> Completed
+                        </span>`;
+                    }
+
+                    historyTable.innerHTML += `
+                        <tr>
+                            <td>${appointment.caseTitle}</td>
+                            <td>${formatDate(appointment.appointmentDate)}</td>
+                            <td>${appointment.appointmentTime}</td>
+                            <td><span class="status-badge status-accepted">${appointment.status}</span></td>
+                            <td>${actionButton}</td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error loading appointment history:", error);
+                showNotification('Error loading appointment history. Please refresh the page.', 'error');
+            }
+        }
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

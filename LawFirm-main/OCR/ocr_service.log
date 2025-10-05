@@ -1,0 +1,425 @@
+2025-03-27 14:57:11,759 - __main__ - INFO - Successfully loaded spaCy model
+2025-03-27 14:57:11,760 - __main__ - INFO - Starting OCR service
+2025-03-27 14:57:11,764 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 14:57:11,769 - werkzeug - INFO -  * Debugger PIN: 951-339-966
+2025-03-27 14:57:27,789 - __main__ - INFO - Processing file: Receipt-2249-6463.pdf, type: pdf
+2025-03-27 14:57:27,980 - __main__ - INFO - Converted PDF to 1 images
+2025-03-27 14:57:27,980 - __main__ - INFO - Processing PDF page 1
+2025-03-27 14:57:28,491 - __main__ - INFO - Extracted 696 characters from PDF
+2025-03-27 14:57:32,015 - __main__ - INFO - NLP processing completed successfully
+2025-03-27 14:57:32,018 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 14:57:32] "POST /upload HTTP/1.1" 200 -
+2025-03-27 14:58:46,284 - __main__ - INFO - Processing file: Receipt-2249-6463.pdf, type: pdf
+2025-03-27 14:58:46,482 - __main__ - INFO - Converted PDF to 1 images
+2025-03-27 14:58:46,482 - __main__ - INFO - Processing PDF page 1
+2025-03-27 14:58:47,011 - __main__ - INFO - Extracted 696 characters from PDF
+2025-03-27 14:58:50,402 - __main__ - INFO - NLP processing completed successfully
+2025-03-27 14:58:50,404 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 14:58:50] "POST /upload HTTP/1.1" 200 -
+2025-03-27 14:59:23,396 - __main__ - INFO - Processing file: Receipt-2249-6463.pdf, type: pdf
+2025-03-27 14:59:23,575 - __main__ - INFO - Converted PDF to 1 images
+2025-03-27 14:59:23,575 - __main__ - INFO - Processing PDF page 1
+2025-03-27 14:59:24,076 - __main__ - INFO - Extracted 696 characters from PDF
+2025-03-27 14:59:27,407 - __main__ - INFO - NLP processing completed successfully
+2025-03-27 14:59:27,409 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 14:59:27] "POST /upload HTTP/1.1" 200 -
+2025-03-27 15:01:01,621 - __main__ - INFO - Processing file: Trial_2.0.pdf, type: pdf
+2025-03-27 15:01:19,017 - __main__ - INFO - Converted PDF to 22 images
+2025-03-27 15:01:19,018 - __main__ - INFO - PDF has 22 pages, limiting to first 20
+2025-03-27 15:01:19,018 - __main__ - INFO - Processing PDF page 1
+2025-03-27 15:01:19,744 - __main__ - INFO - Processing PDF page 2
+2025-03-27 15:01:20,465 - __main__ - INFO - Processing PDF page 3
+2025-03-27 15:01:20,922 - __main__ - INFO - Processing PDF page 4
+2025-03-27 15:01:21,803 - __main__ - INFO - Processing PDF page 5
+2025-03-27 15:01:22,862 - __main__ - INFO - Processing PDF page 6
+2025-03-27 15:01:23,521 - __main__ - INFO - Processing PDF page 7
+2025-03-27 15:01:24,028 - __main__ - INFO - Processing PDF page 8
+2025-03-27 15:01:24,785 - __main__ - INFO - Processing PDF page 9
+2025-03-27 15:01:25,422 - __main__ - INFO - Processing PDF page 10
+2025-03-27 15:01:26,246 - __main__ - INFO - Processing PDF page 11
+2025-03-27 15:01:27,482 - __main__ - INFO - Processing PDF page 12
+2025-03-27 15:01:28,440 - __main__ - INFO - Processing PDF page 13
+2025-03-27 15:01:29,152 - __main__ - INFO - Processing PDF page 14
+2025-03-27 15:01:29,900 - __main__ - INFO - Processing PDF page 15
+2025-03-27 15:01:30,583 - __main__ - INFO - Processing PDF page 16
+2025-03-27 15:01:31,459 - __main__ - INFO - Processing PDF page 17
+2025-03-27 15:01:32,400 - __main__ - INFO - Processing PDF page 18
+2025-03-27 15:01:33,843 - __main__ - INFO - Processing PDF page 19
+2025-03-27 15:01:35,272 - __main__ - INFO - Processing PDF page 20
+2025-03-27 15:01:36,642 - __main__ - INFO - Extracted 31416 characters from PDF
+2025-03-27 15:01:37,561 - __main__ - INFO - Text too long for spelling correction
+2025-03-27 15:01:37,562 - __main__ - INFO - NLP processing completed successfully
+2025-03-27 15:01:37,582 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 15:01:37] "POST /upload HTTP/1.1" 200 -
+2025-03-27 15:02:30,662 - __main__ - INFO - Processing file: Trial_2.0.pdf, type: pdf
+2025-03-27 15:02:48,415 - __main__ - INFO - Converted PDF to 22 images
+2025-03-27 15:02:48,416 - __main__ - INFO - PDF has 22 pages, limiting to first 20
+2025-03-27 15:02:48,416 - __main__ - INFO - Processing PDF page 1
+2025-03-27 15:02:49,127 - __main__ - INFO - Processing PDF page 2
+2025-03-27 15:02:49,842 - __main__ - INFO - Processing PDF page 3
+2025-03-27 15:02:50,312 - __main__ - INFO - Processing PDF page 4
+2025-03-27 15:02:51,188 - __main__ - INFO - Processing PDF page 5
+2025-03-27 15:02:52,249 - __main__ - INFO - Processing PDF page 6
+2025-03-27 15:02:52,902 - __main__ - INFO - Processing PDF page 7
+2025-03-27 15:02:53,411 - __main__ - INFO - Processing PDF page 8
+2025-03-27 15:02:54,173 - __main__ - INFO - Processing PDF page 9
+2025-03-27 15:02:54,806 - __main__ - INFO - Processing PDF page 10
+2025-03-27 15:02:55,638 - __main__ - INFO - Processing PDF page 11
+2025-03-27 15:02:56,865 - __main__ - INFO - Processing PDF page 12
+2025-03-27 15:02:57,817 - __main__ - INFO - Processing PDF page 13
+2025-03-27 15:02:58,519 - __main__ - INFO - Processing PDF page 14
+2025-03-27 15:02:59,226 - __main__ - INFO - Processing PDF page 15
+2025-03-27 15:02:59,912 - __main__ - INFO - Processing PDF page 16
+2025-03-27 15:03:00,762 - __main__ - INFO - Processing PDF page 17
+2025-03-27 15:03:01,695 - __main__ - INFO - Processing PDF page 18
+2025-03-27 15:03:03,132 - __main__ - INFO - Processing PDF page 19
+2025-03-27 15:03:04,545 - __main__ - INFO - Processing PDF page 20
+2025-03-27 15:03:05,922 - __main__ - INFO - Extracted 31416 characters from PDF
+2025-03-27 15:03:06,889 - __main__ - INFO - Text too long for spelling correction
+2025-03-27 15:03:06,889 - __main__ - INFO - NLP processing completed successfully
+2025-03-27 15:03:06,910 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 15:03:06] "POST /upload HTTP/1.1" 200 -
+2025-03-27 15:06:19,375 - werkzeug - INFO -  * Detected change in 'D:\\Projects\\LawFirm\\OCR\\app.py', reloading
+2025-03-27 15:06:24,110 - __main__ - INFO - Successfully loaded spaCy model
+2025-03-27 15:06:24,112 - __main__ - INFO - Starting OCR service with increased limits
+2025-03-27 15:06:24,116 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 15:06:24,122 - werkzeug - INFO -  * Debugger PIN: 951-339-966
+2025-03-27 15:08:50,500 - __main__ - INFO - Processing file: Trial_2.0.pdf, type: pdf
+2025-03-27 15:09:30,480 - __main__ - INFO - Converted PDF to 22 images
+2025-03-27 15:09:30,481 - __main__ - INFO - Processing PDF page 1
+2025-03-27 15:09:31,677 - __main__ - INFO - Processing PDF page 2
+2025-03-27 15:09:32,794 - __main__ - INFO - Processing PDF page 3
+2025-03-27 15:09:33,671 - __main__ - INFO - Processing PDF page 4
+2025-03-27 15:09:34,996 - __main__ - INFO - Processing PDF page 5
+2025-03-27 15:09:36,574 - __main__ - INFO - Processing PDF page 6
+2025-03-27 15:09:37,636 - __main__ - INFO - Processing PDF page 7
+2025-03-27 15:09:38,511 - __main__ - INFO - Processing PDF page 8
+2025-03-27 15:09:39,662 - __main__ - INFO - Processing PDF page 9
+2025-03-27 15:09:40,714 - __main__ - INFO - Processing PDF page 10
+2025-03-27 15:09:41,946 - __main__ - INFO - Processing PDF page 11
+2025-03-27 15:09:43,644 - __main__ - INFO - Processing PDF page 12
+2025-03-27 15:09:45,024 - __main__ - INFO - Processing PDF page 13
+2025-03-27 15:09:46,129 - __main__ - INFO - Processing PDF page 14
+2025-03-27 15:09:47,468 - __main__ - INFO - Processing PDF page 15
+2025-03-27 15:09:48,586 - __main__ - INFO - Processing PDF page 16
+2025-03-27 15:09:49,832 - __main__ - INFO - Processing PDF page 17
+2025-03-27 15:09:51,195 - __main__ - INFO - Processing PDF page 18
+2025-03-27 15:09:53,305 - __main__ - INFO - Processing PDF page 19
+2025-03-27 15:09:55,169 - __main__ - INFO - Processing PDF page 20
+2025-03-27 15:09:57,033 - __main__ - INFO - Processing PDF page 21
+2025-03-27 15:09:58,270 - __main__ - INFO - Processing PDF page 22
+2025-03-27 15:10:00,036 - __main__ - INFO - Extracted 33429 characters from PDF
+2025-03-27 15:10:01,484 - __main__ - INFO - Text too long for spelling correction
+2025-03-27 15:10:01,570 - __main__ - INFO - NLP processing completed successfully
+2025-03-27 15:10:01,573 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 15:10:01] "POST /upload HTTP/1.1" 200 -
+2025-03-27 15:10:16,763 - __main__ - INFO - Processing file: Receipt-2249-6463.pdf, type: pdf
+2025-03-27 15:10:17,130 - __main__ - INFO - Converted PDF to 1 images
+2025-03-27 15:10:17,130 - __main__ - INFO - Processing PDF page 1
+2025-03-27 15:10:18,107 - __main__ - INFO - Extracted 691 characters from PDF
+2025-03-27 15:10:22,158 - __main__ - INFO - NLP processing completed successfully
+2025-03-27 15:10:22,159 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 15:10:22] "POST /upload HTTP/1.1" 200 -
+2025-03-27 15:10:35,830 - __main__ - INFO - Processing file: Trial_2.0.pdf, type: pdf
+2025-03-27 15:11:17,594 - __main__ - INFO - Converted PDF to 22 images
+2025-03-27 15:11:17,594 - __main__ - INFO - Processing PDF page 1
+2025-03-27 15:11:18,767 - __main__ - INFO - Processing PDF page 2
+2025-03-27 15:11:19,878 - __main__ - INFO - Processing PDF page 3
+2025-03-27 15:11:20,769 - __main__ - INFO - Processing PDF page 4
+2025-03-27 15:11:22,092 - __main__ - INFO - Processing PDF page 5
+2025-03-27 15:11:23,643 - __main__ - INFO - Processing PDF page 6
+2025-03-27 15:11:24,698 - __main__ - INFO - Processing PDF page 7
+2025-03-27 15:11:25,558 - __main__ - INFO - Processing PDF page 8
+2025-03-27 15:11:26,678 - __main__ - INFO - Processing PDF page 9
+2025-03-27 15:11:27,745 - __main__ - INFO - Processing PDF page 10
+2025-03-27 15:11:28,984 - __main__ - INFO - Processing PDF page 11
+2025-03-27 15:11:30,675 - __main__ - INFO - Processing PDF page 12
+2025-03-27 15:11:32,071 - __main__ - INFO - Processing PDF page 13
+2025-03-27 15:11:33,164 - __main__ - INFO - Processing PDF page 14
+2025-03-27 15:11:34,394 - __main__ - INFO - Processing PDF page 15
+2025-03-27 15:11:35,470 - __main__ - INFO - Processing PDF page 16
+2025-03-27 15:11:36,704 - __main__ - INFO - Processing PDF page 17
+2025-03-27 15:11:38,120 - __main__ - INFO - Processing PDF page 18
+2025-03-27 15:11:40,134 - __main__ - INFO - Processing PDF page 19
+2025-03-27 15:11:42,154 - __main__ - INFO - Processing PDF page 20
+2025-03-27 15:11:44,055 - __main__ - INFO - Processing PDF page 21
+2025-03-27 15:11:45,295 - __main__ - INFO - Processing PDF page 22
+2025-03-27 15:11:47,000 - __main__ - INFO - Extracted 33429 characters from PDF
+2025-03-27 15:11:48,263 - __main__ - INFO - Text too long for spelling correction
+2025-03-27 15:11:48,356 - __main__ - INFO - NLP processing completed successfully
+2025-03-27 15:11:48,359 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 15:11:48] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:35:52,897 - __main__ - INFO - Successfully loaded spaCy model
+2025-03-28 13:35:52,899 - __main__ - INFO - Starting OCR service with increased limits
+2025-03-28 13:35:52,919 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.4:5000
+2025-03-28 13:35:52,919 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-28 13:35:52,922 - werkzeug - INFO -  * Restarting with stat
+2025-03-28 13:35:57,412 - __main__ - INFO - Successfully loaded spaCy model
+2025-03-28 13:35:57,416 - __main__ - INFO - Starting OCR service with increased limits
+2025-03-28 13:35:57,428 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 13:35:57,441 - werkzeug - INFO -  * Debugger PIN: 951-339-966
+2025-03-28 13:38:09,514 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-1.pdf, type: pdf
+2025-03-28 13:38:12,722 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:38:12,723 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:38:14,123 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:38:15,497 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:38:16,728 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:38:17,967 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:38:19,253 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:38:20,563 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:38:21,923 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:38:23,351 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:38:24,774 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:38:26,227 - __main__ - INFO - Extracted 19954 characters from PDF
+2025-03-28 13:38:27,104 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:38:27,199 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:38:27,202 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:38:27] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:38:46,561 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-2.pdf, type: pdf
+2025-03-28 13:38:48,816 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:38:48,816 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:38:50,047 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:38:51,197 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:38:52,410 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:38:53,269 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:38:55,077 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:38:56,776 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:38:58,546 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:39:00,287 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:39:02,275 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:39:04,339 - __main__ - INFO - Extracted 24801 characters from PDF
+2025-03-28 13:39:05,414 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:39:05,509 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:39:05,511 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:39:05] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:39:12,977 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-3.pdf, type: pdf
+2025-03-28 13:39:15,301 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:39:15,301 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:39:16,934 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:39:19,005 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:39:21,030 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:39:23,126 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:39:25,280 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:39:27,128 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:39:29,079 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:39:31,026 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:39:33,134 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:39:34,908 - __main__ - INFO - Extracted 35182 characters from PDF
+2025-03-28 13:39:36,374 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:39:36,476 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:39:36,478 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:39:36] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:39:49,057 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-4.pdf, type: pdf
+2025-03-28 13:39:51,252 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:39:51,252 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:39:53,276 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:39:55,287 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:39:57,427 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:39:59,486 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:40:01,385 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:40:03,086 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:40:04,715 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:40:06,693 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:40:08,758 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:40:10,919 - __main__ - INFO - Extracted 35381 characters from PDF
+2025-03-28 13:40:11,986 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:40:12,073 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:40:12,075 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:40:12] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:40:22,878 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-5.pdf, type: pdf
+2025-03-28 13:40:25,376 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:40:25,377 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:40:27,434 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:40:29,650 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:40:32,022 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:40:34,109 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:40:36,008 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:40:37,972 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:40:40,176 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:40:42,331 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:40:44,585 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:40:46,684 - __main__ - INFO - Extracted 39467 characters from PDF
+2025-03-28 13:40:48,238 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:40:48,334 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:40:48,337 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:40:48] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:41:03,004 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-6.pdf, type: pdf
+2025-03-28 13:41:05,309 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:41:05,310 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:41:07,183 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:41:09,489 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:41:11,628 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:41:13,576 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:41:15,549 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:41:17,594 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:41:19,605 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:41:21,479 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:41:23,347 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:41:25,299 - __main__ - INFO - Extracted 37032 characters from PDF
+2025-03-28 13:41:26,718 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:41:26,809 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:41:26,811 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:41:26] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:41:35,389 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-7.pdf, type: pdf
+2025-03-28 13:41:37,615 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:41:37,616 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:41:39,739 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:41:41,916 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:41:43,952 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:41:45,890 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:41:48,020 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:41:50,132 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:41:52,095 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:41:54,361 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:41:56,616 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:41:58,662 - __main__ - INFO - Extracted 38951 characters from PDF
+2025-03-28 13:42:00,164 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:42:00,254 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:42:00,257 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:42:00] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:42:14,794 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-8.pdf, type: pdf
+2025-03-28 13:42:17,062 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:42:17,062 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:42:19,289 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:42:21,417 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:42:23,402 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:42:25,496 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:42:27,672 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:42:29,590 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:42:31,453 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:42:33,404 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:42:35,462 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:42:37,796 - __main__ - INFO - Extracted 37444 characters from PDF
+2025-03-28 13:42:38,973 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:42:39,064 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:42:39,066 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:42:39] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:43:09,433 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-9.pdf, type: pdf
+2025-03-28 13:43:11,765 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:43:11,765 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:43:13,767 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:43:15,660 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:43:17,805 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:43:20,058 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:43:22,030 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:43:24,272 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:43:26,719 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:43:29,179 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:43:31,182 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:43:33,315 - __main__ - INFO - Extracted 39067 characters from PDF
+2025-03-28 13:43:34,963 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:43:35,167 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:43:35,169 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:43:35] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:43:50,737 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-10.pdf, type: pdf
+2025-03-28 13:43:53,067 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:43:53,067 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:43:55,062 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:43:57,039 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:43:58,973 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:44:01,016 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:44:03,092 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:44:05,032 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:44:07,112 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:44:09,220 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:44:11,126 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:44:13,306 - __main__ - INFO - Extracted 37323 characters from PDF
+2025-03-28 13:44:14,390 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:44:14,481 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:44:14,483 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:44:14] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:44:34,920 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-11.pdf, type: pdf
+2025-03-28 13:44:37,278 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:44:37,279 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:44:39,216 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:44:41,292 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:44:43,291 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:44:45,239 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:44:47,210 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:44:49,258 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:44:51,205 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:44:53,640 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:44:55,988 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:44:58,239 - __main__ - INFO - Extracted 39067 characters from PDF
+2025-03-28 13:44:59,743 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:44:59,835 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:44:59,837 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:44:59] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:45:10,959 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-12.pdf, type: pdf
+2025-03-28 13:45:13,118 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:45:13,119 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:45:15,050 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:45:17,157 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:45:19,043 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:45:20,965 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:45:22,215 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:45:23,655 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:45:25,308 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:45:27,367 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:45:29,372 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:45:31,498 - __main__ - INFO - Extracted 32796 characters from PDF
+2025-03-28 13:45:32,474 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:45:32,567 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:45:32,569 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:45:32] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:46:01,744 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-13.pdf, type: pdf
+2025-03-28 13:46:03,991 - __main__ - INFO - Converted PDF to 10 images
+2025-03-28 13:46:03,992 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:46:06,181 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:46:08,366 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:46:10,558 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:46:12,606 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:46:14,391 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:46:16,092 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:46:17,750 - __main__ - INFO - Processing PDF page 8
+2025-03-28 13:46:19,482 - __main__ - INFO - Processing PDF page 9
+2025-03-28 13:46:21,193 - __main__ - INFO - Processing PDF page 10
+2025-03-28 13:46:22,970 - __main__ - INFO - Extracted 34911 characters from PDF
+2025-03-28 13:46:24,025 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:46:24,118 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:46:24,121 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:46:24] "POST /upload HTTP/1.1" 200 -
+2025-03-28 13:46:36,547 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023-14.pdf, type: pdf
+2025-03-28 13:46:37,998 - __main__ - INFO - Converted PDF to 7 images
+2025-03-28 13:46:37,999 - __main__ - INFO - Processing PDF page 1
+2025-03-28 13:46:39,694 - __main__ - INFO - Processing PDF page 2
+2025-03-28 13:46:41,213 - __main__ - INFO - Processing PDF page 3
+2025-03-28 13:46:42,777 - __main__ - INFO - Processing PDF page 4
+2025-03-28 13:46:44,445 - __main__ - INFO - Processing PDF page 5
+2025-03-28 13:46:45,992 - __main__ - INFO - Processing PDF page 6
+2025-03-28 13:46:46,588 - __main__ - INFO - Processing PDF page 7
+2025-03-28 13:46:47,298 - __main__ - INFO - Extracted 14644 characters from PDF
+2025-03-28 13:46:47,654 - __main__ - INFO - Text too long for spelling correction
+2025-03-28 13:46:47,745 - __main__ - INFO - NLP processing completed successfully
+2025-03-28 13:46:47,747 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 13:46:47] "POST /upload HTTP/1.1" 200 -
+2025-03-29 22:44:40,797 - __main__ - INFO - Successfully loaded spaCy model
+2025-03-29 22:44:40,800 - __main__ - INFO - Starting OCR service with increased limits
+2025-03-29 22:44:40,837 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.4:5000
+2025-03-29 22:44:40,838 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-29 22:44:40,840 - werkzeug - INFO -  * Restarting with stat
+2025-03-29 22:44:47,849 - __main__ - INFO - Successfully loaded spaCy model
+2025-03-29 22:44:47,850 - __main__ - INFO - Starting OCR service with increased limits
+2025-03-29 22:44:47,853 - werkzeug - WARNING -  * Debugger is active!
+2025-03-29 22:44:47,873 - werkzeug - INFO -  * Debugger PIN: 951-339-966
+2025-04-01 12:03:42,020 - __main__ - INFO - Successfully loaded spaCy model
+2025-04-01 12:03:42,023 - __main__ - INFO - Starting OCR service with increased limits
+2025-04-01 12:03:42,061 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.10.2:5000
+2025-04-01 12:03:42,062 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-01 12:03:42,065 - werkzeug - INFO -  * Restarting with stat
+2025-04-01 12:03:48,385 - __main__ - INFO - Successfully loaded spaCy model
+2025-04-01 12:03:48,386 - __main__ - INFO - Starting OCR service with increased limits
+2025-04-01 12:03:48,391 - werkzeug - WARNING -  * Debugger is active!
+2025-04-01 12:03:48,406 - werkzeug - INFO -  * Debugger PIN: 140-944-376
+2025-04-01 12:04:09,245 - __main__ - INFO - Processing file: Sample Bill.pdf, type: pdf
+2025-04-01 12:04:09,807 - __main__ - INFO - Converted PDF to 1 images
+2025-04-01 12:04:09,807 - __main__ - INFO - Processing PDF page 1
+2025-04-01 12:04:11,717 - __main__ - INFO - Extracted 480 characters from PDF
+2025-04-01 12:04:15,315 - __main__ - INFO - NLP processing completed successfully
+2025-04-01 12:04:15,317 - werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 12:04:15] "POST /upload HTTP/1.1" 200 -
+2025-04-01 12:07:18,356 - __main__ - INFO - Processing file: Bharatiya_Nyaya_Sanhita,_2023.pdf, type: pdf
+2025-04-01 13:11:43,701 - __main__ - INFO - Successfully loaded spaCy model
+2025-04-01 13:11:43,704 - __main__ - INFO - Starting OCR service with increased limits
+2025-04-01 13:11:43,733 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.10.2:5000
+2025-04-01 13:11:43,734 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-01 13:11:43,737 - werkzeug - INFO -  * Restarting with stat
+2025-04-01 13:11:48,401 - __main__ - INFO - Successfully loaded spaCy model
+2025-04-01 13:11:48,403 - __main__ - INFO - Starting OCR service with increased limits
+2025-04-01 13:11:48,409 - werkzeug - WARNING -  * Debugger is active!
+2025-04-01 13:11:48,417 - werkzeug - INFO -  * Debugger PIN: 114-540-234
+2025-04-01 13:18:13,686 - __main__ - INFO - Processing file: Receipt-2249-6463.pdf, type: pdf
+2025-04-01 13:18:14,407 - __main__ - INFO - Converted PDF to 1 images
+2025-04-01 13:18:14,407 - __main__ - INFO - Processing PDF page 1
+2025-04-01 13:18:16,320 - __main__ - INFO - Extracted 691 characters from PDF
+2025-04-01 13:18:22,224 - __main__ - INFO - NLP processing completed successfully
+2025-04-01 13:18:22,226 - werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 13:18:22] "POST /upload HTTP/1.1" 200 -

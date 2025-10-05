@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Chatbot</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #2c5282;
+            --primary-light: #4a69bd;
+            --primary-dark: #1a365d;
+            --secondary-color: #4299e1;
+            --secondary-light: #63b3ed;
+            --accent-color: #ebf8ff;
+            --success-color: #48bb78;
+            --success-light: #c6f6d5;
+            --warning-color: #ecc94b;
+            --warning-light: #fefcbf;
+            --danger-color: #f56565;
+            --danger-light: #fed7d7;
+            --info-color: #4fc3f7;
+            --info-light: #e1f5fe;
+            --dark-color: #2d3748;
+            --light-color: #f7fafc;
+            --gray-100: #f7fafc;
+            --gray-200: #edf2f7;
+            --gray-300: #e2e8f0;
+            --gray-400: #cbd5e0;
+            --gray-500: #a0aec0;
+            --gray-600: #718096;
+            --gray-700: #4a5568;
+            --gray-800: #2d3748;
+            --gray-900: #1a202c;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: white;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-brand i {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            color: var(--secondary-color);
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+        }
+
+        .sidebar-brand h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0.4rem 0;
+            border-radius: 0.5rem;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .sidebar i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Chatbot container - with sidebar space */
+        #chatbot-container {
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - 250px);
+            margin-left: 250px;
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        /* Chatbot header */
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .chatbot-title i {
+            font-size: 1.4rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .header-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Chatbot messages container */
+        .chatbot-messages {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background-color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Message styles */
+        .chatbot-message {
+            max-width: 70%;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            border-radius: 18px;
+            line-height: 1.5;
+            font-size: 1rem;
+            position: relative;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bot-message {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+            margin-right: auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+            margin-left: auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            max-width: 100px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #a0aec0;
+            border-radius: 50%;
+            margin: 0 2px;
+            display: inline-block;
+            animation: pulse 1.2s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Input container */
+        .chatbot-input-container {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            background-color: white;
+            border-top: 1px solid #e2e8f0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        #chatbot-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            font-size: 1rem;
+            resize: none;
+            height: 52px;
+            max-height: 150px;
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        #chatbot-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(44, 82, 130, 0.2);
+        }
+
+        #chatbot-send {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        #chatbot-send:hover {
+            transform: scale(1.05);
+            background-color: var(--primary-dark);
+        }
+
+        #chatbot-send i {
+            font-size: 1.2rem;
+        }
+
+        /* Loading screen */
+        .chatbot-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(248, 250, 252, 0.95);
+            z-index: 10;
+        }
+
+        .chatbot-loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 24px;
+        }
+
+        .chatbot-loading p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Links in bot messages */
+        .bot-message a {
+            color: var(--primary-color);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--primary-color);
+        }
+
+        .bot-message a:hover {
+            border-bottom: 1px solid var(--primary-color);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            #chatbot-container {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .show-sidebar .sidebar {
+                transform: translateX(0);
+            }
+
+            .chatbot-message {
+                max-width: 85%;
+            }
+
+            /* Add a toggle button for mobile */
+            #sidebar-toggle {
+                display: block;
+                position: absolute;
+                top: 16px;
+                left: 16px;
+                z-index: 1001;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            #sidebar-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-gavel"></i>
+            <h2>VRP Associates</h2>
+        </div>
+        <a href="dashboard.html"><i class="fas fa-calendar-alt"></i> <span>Appointments</span></a>
+        <a href="profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
+        <a href="cases.html" class="active"><i class="fas fa-briefcase"></i> <span>Cases</span></a>
+        <a href="logout.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+    </div>
+
+    <!-- Fullscreen Chatbot -->
+    <div id="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <i class="fas fa-robot"></i>
+                <span>VRP Associates Document Assistant</span>
+            </div>
+            <div class="header-actions">
+                <button id="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages"></div>
+        <div id="chatbot-loading" class="chatbot-loading">
+            <div class="chatbot-loading-spinner"></div>
+            <p>Loading document data...</p>
+        </div>
+        <div class="chatbot-input-container" id="chatbot-input-container" style="display:none;">
+            <textarea id="chatbot-input" placeholder="Ask about your case documents..."></textarea>
+            <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgoPtXj4qy72gq_YEdwfIju2MQaUYbSd0",
+            authDomain: "ibase-29eaf.firebaseapp.com",
+            projectId: "ibase-29eaf",
+            storageBucket: "ibase-29eaf.appspot.com",
+            messagingSenderId: "347587111588",
+            appId: "1:347587111588:web:4ff899dd7951ab82699431",
+            measurementId: "G-XMN0596FV3"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Gemini API Configuration
+        const GEMINI_API_KEY = "AIzaSyCy0-0OilbAGwUw6RBl_WZRuRUTj7sPk10";
+        const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+
+        // Global variables
+        let allOcrData = []; // Will store all OCR data retrieved from Firebase
+        let isLoading = false;
+
+        // Initialize the chatbot when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeChatbot();
+
+            // Add event listener for sidebar toggle on mobile
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('show-sidebar');
+                });
+            }
+        });
+
+        // Initialize the chatbot
+        async function initializeChatbot() {
+            // Fetch all OCR data from Firebase
+            await fetchAllOcrData();
+
+            // Hide loading screen and show chat input when data is loaded
+            document.getElementById('chatbot-loading').style.display = 'none';
+            document.getElementById('chatbot-input-container').style.display = 'flex';
+
+            // Add welcome message
+            addBotMessage("Hello! I'm your legal assistant. I can answer questions based on the documents in this case. What would you like to know?");
+
+            // Add event listeners
+            document.getElementById('chatbot-send').addEventListener('click', sendMessage);
+            document.getElementById('chatbot-input').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+
+        // Fetch all OCR data from Firebase
+        async function fetchAllOcrData() {
+            isLoading = true;
+            allOcrData = []; // Clear any existing data
+
+            try {
+                // First, get all cases
+                const casesSnapshot = await db.collection("cases").get();
+
+                if (casesSnapshot.empty) {
+                    console.log("No cases found");
+                    addBotMessage("I couldn't find any cases in the database.");
+                    isLoading = false;
+                    return;
+                }
+
+                // Track how many cases we've processed
+                let processedCases = 0;
+                let totalCases = casesSnapshot.size;
+                let totalDocuments = 0;
+
+                // Process each case
+                const promises = casesSnapshot.docs.map(async (caseDoc) => {
+                    const caseId = caseDoc.id;
+                    const caseData = caseDoc.data();
+
+                    // Get OCR documents from this case's subcollection
+                    const ocrSnapshot = await db.collection("cases").doc(caseId).collection("ocrDocuments").get();
+
+                    // Process all OCR documents in this case
+                    ocrSnapshot.forEach(doc => {
+                        const ocrData = doc.data();
+
+                        // Extract useful text content from OCR data
+                        const textContent = {
+                            id: doc.id,
+                            fileName: ocrData.fileName || 'Unnamed Document',
+                            text: ocrData.correctedText || ocrData.originalText || '',
+                            summary: ocrData.summary || '',
+                            entities: ocrData.entities || [],
+                            sentiment: ocrData.sentiment || '',
+                            caseId: caseId,
+                            caseName: caseData.caseTitle || 'Untitled Case'
+                        };
+
+                        // Only add if there's actual text content
+                        if (textContent.text.trim().length > 0) {
+                            allOcrData.push(textContent);
+                            totalDocuments++;
+                        }
+                    });
+
+                    processedCases++;
+                    console.log(`Processed ${processedCases}/${totalCases} cases`);
+                });
+
+                // Wait for all cases to be processed
+                await Promise.all(promises);
+
+                if (allOcrData.length === 0) {
+                    console.log("No OCR documents found across all cases");
+                    addBotMessage("I couldn't find any processed documents across all cases. Please upload and process some documents first.");
+                } else {
+                    console.log(`Loaded ${allOcrData.length} OCR documents from ${totalCases} cases`);
+                }
+
+            } catch (error) {
+                console.error("Error fetching OCR data:", error);
+                addBotMessage("Sorry, I had trouble accessing the document database. Please try again later.");
+            }
+
+            isLoading = false;
+        }
+
+        // Send message to chatbot
+        function sendMessage() {
+            const inputField = document.getElementById('chatbot-input');
+            const messageText = inputField.value.trim();
+
+            if (messageText === '' || isLoading) return;
+
+            // Add user message to chat
+            addUserMessage(messageText);
+
+            // Clear input field
+            inputField.value = '';
+
+            // Process and respond to message
+            processMessage(messageText);
+        }
+
+        // Process message and generate response
+        async function processMessage(message) {
+            isLoading = true;
+
+            // Show typing indicator
+            const messagesContainer = document.getElementById('chatbot-messages');
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'chatbot-message bot-message typing-indicator';
+            typingIndicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+            messagesContainer.appendChild(typingIndicator);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            try {
+                // If no OCR data, inform the user
+                if (allOcrData.length === 0) {
+                    setTimeout(() => {
+                        messagesContainer.removeChild(typingIndicator);
+                        addBotMessage("I don't have any document data to search through. Please upload and process some documents first.");
+                        isLoading = false;
+                    }, 1000);
+                    return;
+                }
+
+                // Prepare context from OCR data
+                const context = prepareContext(message);
+
+                // Prepare prompt for Gemini API
+                const prompt = `
+        You are a legal assistant chatbot that only answers questions based on the provided document information.
+        Do not make up information or use external knowledge.
+        If the documents don't contain relevant information to answer a question, admit that you don't know.
+
+        Here is information from the legal documents:
+        ${context}
+
+        Question: ${message}
+
+        Remember: Only answer based on the document information provided above. If the answer isn't in the documents, say "I don't have enough information in the documents to answer that question."
+        `;
+
+                // Call Gemini API
+                const response = await callGeminiAPI(prompt);
+
+                // Remove typing indicator and add response
+                messagesContainer.removeChild(typingIndicator);
+                addBotMessage(response);
+
+            } catch (error) {
+                console.error("Error processing message:", error);
+
+                // Remove typing indicator and add error message
+                messagesContainer.removeChild(typingIndicator);
+                addBotMessage("Sorry, I encountered an error while processing your request. Please try again later.");
+            }
+
+            isLoading = false;
+        }
+
+        // Prepare context from OCR data based on relevance to user query
+        function prepareContext(query) {
+            // Simple relevance scoring based on term frequency
+            const queryTerms = query.toLowerCase().split(/\W+/).filter(term => term.length > 2);
+
+            // Score each document for relevance
+            const scoredDocs = allOcrData.map(doc => {
+                const textToSearch = (doc.text + " " + doc.summary).toLowerCase();
+                let score = 0;
+
+                // Count term frequency
+                queryTerms.forEach(term => {
+                    const regex = new RegExp(`\\b${term}\\b`, 'gi');
+                    const matches = textToSearch.match(regex);
+                    if (matches) {
+                        score += matches.length;
+                    }
+                });
+
+                return { doc, score };
+            });
+
+            // Sort by relevance score
+            scoredDocs.sort((a, b) => b.score - a.score);
+
+            // Get top 3 most relevant documents or all if less than 3
+            const topDocs = scoredDocs.slice(0, 3).filter(item => item.score > 0);
+
+            // If no relevant documents found, use all documents (limited to first 3)
+            const docsToUse = topDocs.length > 0 ? topDocs.map(item => item.doc) : allOcrData.slice(0, 3);
+
+            // Prepare context from selected documents
+            let context = "";
+            docsToUse.forEach(doc => {
+                context += `DOCUMENT: ${doc.fileName}\n`;
+                context += `SUMMARY: ${doc.summary}\n`;
+
+                // Include a portion of the text, focusing on most relevant parts
+                let textToInclude = doc.text;
+                if (textToInclude.length > 5000) {
+                    // If text is too long, try to find relevant sections
+                    const excerpts = findRelevantExcerpts(textToInclude, queryTerms);
+                    textToInclude = excerpts.join("\n...\n");
+                }
+
+                context += `CONTENT: ${textToInclude}\n\n`;
+            });
+
+            return context;
+        }
+
+        // Find relevant excerpts from a long text
+        function findRelevantExcerpts(text, queryTerms) {
+            const excerpts = [];
+            const paragraphs = text.split(/\n\s*\n/);
+
+            // Score each paragraph
+            const scoredParagraphs = paragraphs.map(para => {
+                let score = 0;
+                queryTerms.forEach(term => {
+                    const regex = new RegExp(`\\b${term}\\b`, 'gi');
+                    const matches = para.match(regex);
+                    if (matches) {
+                        score += matches.length;
+                    }
+                });
+                return { para, score };
+            });
+
+            // Sort by score and get top 5 paragraphs
+            scoredParagraphs.sort((a, b) => b.score - a.score);
+            const topParagraphs = scoredParagraphs.filter(item => item.score > 0).slice(0, 5);
+
+            // If no relevant paragraphs, just take first 3
+            if (topParagraphs.length === 0) {
+                return paragraphs.slice(0, 3);
+            }
+
+            // Extract paragraphs
+            return topParagraphs.map(item => item.para);
+        }
+
+        // Call Gemini API with prompt
+        async function callGeminiAPI(prompt) {
+            try {
+                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: prompt }]
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Gemini API error:", errorData);
+                    throw new Error("Failed to get response from AI model");
+                }
+
+                const data = await response.json();
+
+                // Extract the response text
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+                    return data.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("Unexpected response format from Gemini API");
+                }
+
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return "Sorry, I encountered an error while generating a response. Please try again later.";
+            }
+        }
+
+        // Add user message to chat
+        function addUserMessage(message) {
+            const messagesContainer = document.getElementById('chatbot-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chatbot-message user-message';
+            messageElement.textContent = message;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Add bot message to chat
+        function addBotMessage(message) {
+            const messagesContainer = document.getElementById('chatbot-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chatbot-message bot-message';
+
+            // Convert URLs to clickable links and handle markdown-style formatting
+            message = formatMessage(message);
+
+            messageElement.innerHTML = message;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Format message with basic markdown and link detection
+        function formatMessage(message) {
+            // Convert line breaks to <br>
+            message = message.replace(/\n/g, '<br>');
+
+            // Make URLs clickable
+            message = message.replace(
+                /(https?:\/\/[^\s<]+)/g,
+                '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+            );
+
+            // Bold text between asterisks
+            message = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            // Italic text between underscores
+            message = message.replace(/\_(.*?)\_/g, '<em>$1</em>');
+
+            return message;
+        }
+    </script>
+</body>
+
+</html>

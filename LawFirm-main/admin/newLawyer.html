@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRP Associates Law Firm - Lawyer Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c5282;
+            --primary-light: #4a69bd;
+            --primary-dark: #1a365d;
+            --secondary-color: #4299e1;
+            --accent-color: #ebf8ff;
+            --success-color: #48bb78;
+            --warning-color: #ecc94b;
+            --danger-color: #f56565;
+            --dark-color: #2d3748;
+            --light-color: #f7fafc;
+            --gray-100: #f7fafc;
+            --gray-200: #edf2f7;
+            --gray-300: #e2e8f0;
+            --gray-400: #cbd5e0;
+            --gray-500: #a0aec0;
+            --gray-600: #718096;
+            --gray-700: #4a5568;
+            --gray-800: #2d3748;
+            --gray-900: #1a202c;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: var(--gray-800);
+            min-height: 100vh;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            color: white;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-brand i {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            color: var(--secondary-color);
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+        }
+
+        .sidebar-brand h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: var(--gray-300);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            margin: 0.2rem 0;
+            border-radius: 0 30px 30px 0;
+            transition: var(--transition);
+        }
+
+        .sidebar a i {
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+            width: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: white;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            border-left: 4px solid var(--secondary-color);
+            font-weight: 500;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .sidebar a.active i {
+            color: var(--secondary-color);
+        }
+
+        /* Main content styles */
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Form styles */
+        .register-container {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            max-width: 800px;
+            width: 100%;
+            margin: 1rem auto;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .register-container h1 {
+            text-align: center;
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .register-container h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+        }
+
+        .register-container h1 i {
+            color: var(--primary-color);
+        }
+
+        /* Form layout - two column grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-grid .full-width {
+            grid-column: span 2;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--gray-700);
+            background-color: var(--gray-100);
+            background-clip: padding-box;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            transition: var(--transition);
+            height: auto;
+        }
+
+        .form-control:focus {
+            color: var(--gray-900);
+            background-color: #fff;
+            border-color: var(--secondary-color);
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 2.5rem;
+            left: 0.8rem;
+            color: var(--gray-500);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus~.input-icon {
+            color: var(--primary-color);
+        }
+
+        .input-file-custom {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .input-file-custom .form-control {
+            padding-left: 2.5rem;
+        }
+
+        /* Form sections */
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Submit button */
+        .btn-submit {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            width: 100%;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 6px rgba(66, 153, 225, 0.3);
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(66, 153, 225, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(1px);
+        }
+
+        /* Form tooltip */
+        .form-tooltip {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            color: var(--gray-500);
+            cursor: help;
+            font-size: 0.9rem;
+        }
+
+        /* Status indicators */
+        .status-message {
+            display: none;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .status-success {
+            background-color: rgba(72, 187, 120, 0.1);
+            color: var(--success-color);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .status-error {
+            background-color: rgba(245, 101, 101, 0.1);
+            color: var(--danger-color);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        /* Loading spinner */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Tooltip styles */
+        .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-color);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 100;
+            top: -5px;
+            right: 30px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: normal;
+            font-size: 0.8rem;
+        }
+
+        .form-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar a {
+                padding: 1rem;
+                justify-content: center;
+            }
+
+            .sidebar a i {
+                margin-right: 0;
+                font-size: 1.5rem;
+            }
+
+            .sidebar a span {
+                display: none;
+            }
+
+            .sidebar-brand {
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .sidebar-brand h2 {
+                display: none;
+            }
+
+            .sidebar-brand i {
+                margin-right: 0;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid .full-width {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .register-container {
+                padding: 1.5rem;
+            }
+
+            .register-container h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation classes */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(66, 153, 225, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(66, 153, 225, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(66, 153, 225, 0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Decorative elements */
+        .decoration {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: -1;
+        }
+
+        .decoration-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .decoration-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: 10%;
+            animation: float 18s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        /* Form validation styles */
+        .form-control.is-invalid {
+            border-color: var(--danger-color);
+            background-image: none;
+            padding-right: 1rem;
+        }
+
+        .form-control.is-invalid:focus {
+            box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.15);
+        }
+
+        .invalid-feedback {
+            display: none;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+            color: var(--danger-color);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-gavel"></i>
+            <h2>VRP Associates</h2>
+        </div>
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+        <a href="appointments.html"><i class="fas fa-calendar-alt"></i> <span>Appointments</span></a>
+        <a href="newUser.html"><i class="fas fa-user-tie"></i> <span>Clients</span></a>
+        <a href="newLawyer.html" class="active"><i class="fas fa-gavel"></i> <span>Lawyers</span></a>
+        <a href="logout.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Decorative elements -->
+        <div class="decoration decoration-1"></div>
+        <div class="decoration decoration-2"></div>
+
+        <div class="register-container">
+            <h1><i class="fas fa-user-plus"></i> Lawyer Registration</h1>
+
+            <!-- Status Messages -->
+            <div id="status-success" class="status-message status-success">
+                <i class="fas fa-check-circle me-2"></i> Lawyer registration completed successfully!
+            </div>
+            <div id="status-error" class="status-message status-error">
+                <i class="fas fa-exclamation-circle me-2"></i> <span id="error-message">An error occurred. Please try
+                    again.</span>
+            </div>
+
+            <form id="register-form">
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-user"></i> Personal Information
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter full name" required>
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob" class="form-label">Date of Birth</label>
+                            <input type="date" id="dob" class="form-control" required>
+                            <i class="fas fa-calendar-alt input-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter email address"
+                                required>
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Enter phone number" required>
+                            <i class="fas fa-phone input-icon"></i>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" id="address" class="form-control" placeholder="Enter complete address"
+                                required>
+                            <i class="fas fa-home input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Information Section -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-briefcase"></i> Professional Information
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="bar_number" class="form-label">Bar Council Registration Number</label>
+                            <input type="text" id="bar_number" class="form-control"
+                                placeholder="Enter registration number" required>
+                            <i class="fas fa-id-card input-icon"></i>
+                            <span class="form-tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="tooltip-text">Enter the official registration number issued by the Bar
+                                    Council</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experience" class="form-label">Experience (Years)</label>
+                            <input type="number" id="experience" class="form-control"
+                                placeholder="Enter years of experience" required min="0" max="70">
+                            <i class="fas fa-calendar input-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="practice_area" class="form-label">Practice Area (Specialization)</label>
+                            <input type="text" id="practice_area" class="form-control"
+                                placeholder="E.g., Criminal Law, Family Law" required>
+                            <i class="fas fa-briefcase input-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="law_firm" class="form-label">Law Firm Name (if applicable)</label>
+                            <input type="text" id="law_firm" class="form-control"
+                                placeholder="Enter law firm name if any">
+                            <i class="fas fa-building input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Information Section -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-lock"></i> Account Information
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" class="form-control"
+                                placeholder="Enter a strong password" required>
+                            <i class="fas fa-lock input-icon"></i>
+                            <span class="form-tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="tooltip-text">Password must be at least 8 characters with letters, numbers,
+                                    and special characters</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                            <input type="password" id="confirm_password" class="form-control"
+                                placeholder="Confirm your password" required>
+                            <i class="fas fa-lock input-icon"></i>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="profile_picture" class="form-label">Profile Picture</label>
+                            <div class="input-file-custom">
+                                <input type="file" id="profile_picture" class="form-control" accept="image/*" required>
+                                <i class="fas fa-image input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-submit pulse">
+                    <i class="fas fa-user-plus"></i> Register Lawyer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+        import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-storage.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgoPtXj4qy72gq_YEdwfIju2MQaUYbSd0",
+            authDomain: "ibase-29eaf.firebaseapp.com",
+            projectId: "ibase-29eaf",
+            storageBucket: "ibase-29eaf.appspot.com",
+            messagingSenderId: "347587111588",
+            appId: "1:347587111588:web:4ff899dd7951ab82699431",
+            measurementId: "G-XMN0596FV3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // DOM Elements
+        const registerForm = document.getElementById("register-form");
+        const loadingOverlay = document.getElementById("loading-overlay");
+        const statusSuccess = document.getElementById("status-success");
+        const statusError = document.getElementById("status-error");
+        const errorMessage = document.getElementById("error-message");
+
+        // Form validation
+        function validateForm() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm_password").value;
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                document.getElementById("confirm_password").classList.add("is-invalid");
+                showError("Passwords do not match");
+                return false;
+            }
+
+            // Check password strength
+            if (password.length < 8) {
+                document.getElementById("password").classList.add("is-invalid");
+                showError("Password must be at least 8 characters long");
+                return false;
+            }
+
+            return true;
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            statusError.style.display = "block";
+            statusSuccess.style.display = "none";
+
+            // Scroll to error message
+            statusError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Show success message
+        function showSuccess() {
+            statusSuccess.style.display = "block";
+            statusError.style.display = "none";
+
+            // Scroll to success message
+            statusSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Handle form submission
+        registerForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            // Hide any previous messages
+            statusSuccess.style.display = "none";
+            statusError.style.display = "none";
+
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+
+            // Show loading overlay
+            loadingOverlay.style.display = "flex";
+
+            try {
+                // Get form values
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const phone = document.getElementById("phone").value;
+                const address = document.getElementById("address").value;
+                const password = document.getElementById("password").value;
+                const barNumber = document.getElementById("bar_number").value;
+                const practiceArea = document.getElementById("practice_area").value;
+                const experience = document.getElementById("experience").value;
+                const lawFirm = document.getElementById("law_firm").value || "Independent Practice";
+                const dob = document.getElementById("dob").value;
+                const profilePicture = document.getElementById("profile_picture").files[0];
+
+                // Create user account
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Upload profile picture if selected
+                let profilePictureUrl = "";
+                if (profilePicture) {
+                    const storageRef = ref(storage, `lawyer_profiles/${user.uid}`);
+                    await uploadBytes(storageRef, profilePicture);
+                    profilePictureUrl = await getDownloadURL(storageRef);
+                }
+
+                // Store lawyer data in Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    name: "Adv. " + name,
+                    email,
+                    phone,
+                    address,
+                    barNumber,
+                    practiceArea,
+                    experience,
+                    lawFirm,
+                    dob,
+                    profilePicture: profilePictureUrl,
+                    role: "lawyer",
+                    createdAt: new Date(),
+                    status: "active"
+                });
+
+                // Hide loading overlay
+                loadingOverlay.style.display = "none";
+
+                // Show success message
+                showSuccess();
+
+                // Reset form
+                registerForm.reset();
+
+                // Remove pulse animation from button
+                document.querySelector(".btn-submit").classList.remove("pulse");
+
+            } catch (error) {
+                // Hide loading overlay
+                loadingOverlay.style.display = "none";
+
+                // Format error message
+                let formattedError = error.message;
+                if (error.code === 'auth/email-already-in-use') {
+                    formattedError = "This email address is already registered.";
+                } else if (error.code === 'auth/invalid-email') {
+                    formattedError = "Please enter a valid email address.";
+                } else if (error.code === 'auth/weak-password') {
+                    formattedError = "Password should be at least 6 characters.";
+                }
+
+                // Show error message
+                showError(formattedError);
+                console.error("Error: ", error);
+            }
+        });
+
+        // Password confirmation validation
+        document.getElementById("confirm_password").addEventListener("input", function () {
+            const password = document.getElementById("password").value;
+            const confirmPassword = this.value;
+
+            if (password !== confirmPassword) {
+                this.classList.add("is-invalid");
+                if (!this.nextElementSibling.classList.contains("invalid-feedback")) {
+                    const feedback = document.createElement("div");
+                    feedback.classList.add("invalid-feedback");
+                    feedback.textContent = "Passwords do not match";
+                    this.parentNode.appendChild(feedback);
+                    feedback.style.display = "block";
+                }
+            } else {
+                this.classList.remove("is-invalid");
+                const feedback = this.nextElementSibling.classList.contains("invalid-feedback")
+                    ? this.nextElementSibling
+                    : null;
+                if (feedback) {
+                    feedback.style.display = "none";
+                }
+            }
+        });
+
+        // Password strength validation
+        document.getElementById("password").addEventListener("input", function () {
+            const password = this.value;
+
+            if (password.length < 8) {
+                this.classList.add("is-invalid");
+                if (!this.nextElementSibling.classList.contains("invalid-feedback")) {
+                    const feedback = document.createElement("div");
+                    feedback.classList.add("invalid-feedback");
+                    feedback.textContent = "Password must be at least 8 characters";
+                    this.parentNode.appendChild(feedback);
+                    feedback.style.display = "block";
+                }
+            } else {
+                this.classList.remove("is-invalid");
+                const feedback = this.nextElementSibling.classList.contains("invalid-feedback")
+                    ? this.nextElementSibling
+                    : null;
+                if (feedback) {
+                    feedback.style.display = "none";
+                }
+            }
+
+            // Also check confirm password field if it has a value
+            const confirmPassword = document.getElementById("confirm_password");
+            if (confirmPassword.value) {
+                confirmPassword.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // Profile picture preview
+        document.getElementById("profile_picture").addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Create image preview container if it doesn't exist
+                    let previewContainer = document.getElementById("picture-preview");
+                    if (!previewContainer) {
+                        previewContainer = document.createElement("div");
+                        previewContainer.id = "picture-preview";
+                        previewContainer.style.marginTop = "10px";
+                        previewContainer.style.textAlign = "center";
+                        document.querySelector(".input-file-custom").appendChild(previewContainer);
+                    }
+
+                    // Create or update image preview
+                    let img = previewContainer.querySelector("img");
+                    if (!img) {
+                        img = document.createElement("img");
+                        img.style.maxWidth = "150px";
+                        img.style.maxHeight = "150px";
+                        img.style.borderRadius = "10px";
+                        img.style.boxShadow = "0 3px 10px rgba(0,0,0,0.2)";
+                        previewContainer.appendChild(img);
+                    }
+
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
